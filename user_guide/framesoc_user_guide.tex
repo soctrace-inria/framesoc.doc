@@ -1,5 +1,5 @@
 %%
-%% FrameSoC Workbench User Guide
+%% Framesoc Workbench User Guide
 %%
 
 \documentclass[twoside]{article}
@@ -7,7 +7,6 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{RR}
-\usepackage{hyperref}
 \usepackage{epsfig}
 \usepackage[frenchb]{babel}
 \usepackage{cite}
@@ -15,11 +14,11 @@
 \usepackage{graphicx}
 \usepackage{subcaption}
 \usepackage{textcomp}
-
+\usepackage[hidelinks]{hyperref} % hide link squares
 \usepackage{listings}
 %%
 %% date
-\RRdate{June 2014}
+\RRdate{December 2014}
 %%
 %% If version 2
 %% \RRversion{2}
@@ -30,13 +29,13 @@
 Generoso Pagano \thanks{INRIA, generoso.pagano@inria.fr}
 }
 %% On each even page
-\authorhead{FrameSoC User Guide}
+\authorhead{Framesoc User Guide}
 %% French title
-\RRtitle{FrameSoC Workbench User Guide}
+\RRtitle{Framesoc Workbench User Guide}
 %% English title
-\RRetitle{FrameSoC Workbench User Guide}
+\RRetitle{Framesoc Workbench User Guide}
 %%
-\titlehead{FrameSoC Workbench User Guide}
+\titlehead{Framesoc Workbench User Guide}
 %%
 \RRprojet{MESCAL}
 %%
@@ -44,7 +43,7 @@ Generoso Pagano \thanks{INRIA, generoso.pagano@inria.fr}
 %%
 \RCGrenoble 
 %%
-\abstract{This guide describes the FrameSoC workbench, delivered within the SETv1.0.}
+\abstract{This guide describes the Framesoc workbench. The document targets the end-users.}
 
 %%=====================================================================
 %%=====================================================================
@@ -83,40 +82,40 @@ Generoso Pagano \thanks{INRIA, generoso.pagano@inria.fr}
 
 %=====================================================================
 
-FrameSoC, the SoC-Trace project~\cite{SoC-TRACE} trace management infrastructure, is composed by three main layers, as shown in Figure~\ref{fig:architecture}.
+Framesoc, the SoC-Trace project~\cite{SoC-TRACE} trace management infrastructure, is composed by three main layers, as shown in Figure~\ref{fig:architecture}.
 
 \begin{figure}[h]
   \centering
     \includegraphics[width=0.7\textwidth]{images/framesoc_architecture.pdf}
-  \caption{FrameSoC Architecture}
+  \caption{Framesoc Architecture}
   \label{fig:architecture}
 \end{figure}
 
 At the lowest level, there is a Multiple-Trace database, which stores all the data concerning traces, analysis tools and the analysis result produced by thees tools, using a generic data-model.
 Above this layer, the SoC-Trace library provides a software API to facilitate the interaction with the data-model and help the implementation of trace tools.
-On top of this software library, the FrameSoC workbench provides a graphical user environment, facilitating trace management, basic trace analysis and tool management.
+On top of this software library, the Framesoc workbench provides a graphical user environment, facilitating trace management, basic trace analysis and tool management.
 
-This guide describes the FrameSoC workbench from the user perspective. 
-More information about the lowest to layers of FrameSoC infrastructure can be found in the technical report RT-427~\cite{pagano:hal} and the research report RR-LIG-046~\cite{rrlig46}.
+This guide describes the Framesoc workbench from the user perspective. 
+More information about the lowest to layers of Framesoc infrastructure can be found in the technical report RT-427~\cite{pagano:hal} and the research report RR-LIG-046~\cite{rrlig46}.
 
 \newpage
 
 %=====================================================================
-\section{FrameSoC Perspective}
+\section{Framesoc Perspective}
 \label{sec:perspective}
 %=====================================================================
 
 \begin{figure}[h!]
   \centering
     \includegraphics[width=1.0\textwidth]{images/all_perspective_nocategory.png}
-  \caption{FrameSoC Eclipse Workbench}
+  \caption{Framesoc Eclipse Workbench}
   \label{fig:all_perspective}
 \end{figure}
 
-The FrameSoC workbench is an Eclipse application providing a perspective\footnote{Within an Eclipse application, a perspective defines an initial set and layout of views, menu and toolbars. The FrameSoC Eclipse perspective can be activated by selecting it from the \textbf{Window > Open Perspective > Other...} menu.} for trace management and analysis.
-The FrameSoC perspective (Figure~\ref{fig:all_perspective}) contains the following elements:
+The Framesoc workbench is an Eclipse application providing a perspective\footnote{Within an Eclipse application, a perspective defines an initial set and layout of views, menu and toolbars. The Framesoc Eclipse perspective can be activated by selecting it from the \textbf{Window > Open Perspective > Other...} menu.} for trace management and analysis.
+The Framesoc perspective (Figure~\ref{fig:all_perspective}) contains the following elements:
 \begin{itemize}
- \item A FrameSoC menu (on top).
+ \item A Framesoc menu (on top).
  \item A toolbar (the second toolbar, from the left).
  \item A set of views for trace management and analysis. We find on the left the two \emph{management views}: a trace browser on top and a trace metadata viewer at the bottom. On the right there are three \emph{analysis views}: a statistics pie chart and an event density chart on top, and an event table at the bottom. 
 \end{itemize}
@@ -130,7 +129,7 @@ When a trace is selected in the trace browser, the corresponding metadata are sh
 In the example shown in Figure~\ref{fig:all_perspective}, all analysis views refer to the selected trace \texttt{scorep-mg.A.64}).
 On the other hand, when an analysis view is given focus, the trace shown in that view becomes the selected trace in the trace browser, so the metadata viewer is updated accordingly and all the analysis views are consistently highlighted or unhighlighted. 
 
-The following sections describe in detail the FrameSoC management and analysis views, as well as the functionalities accessible via the FrameSoC menu and toolbar.
+The following sections describe in detail the Framesoc management and analysis views, as well as the functionalities accessible via the Framesoc menu and toolbar.
 
 %=====================================================================
 \section{Management Views}
@@ -148,7 +147,7 @@ The following sections describe in detail the FrameSoC management and analysis v
   \label{fig:popup_explorer}
 \end{figure}
 
-The \emph{Traces} view (Figure~\ref{fig:popup_explorer}) is the FrameSoC perspective trace browser.
+The \emph{Traces} view (Figure~\ref{fig:popup_explorer}) is the Framesoc perspective trace browser.
 Traces are presented in a tree viewer with a two-level hierarchy. 
 The first level distinguishes processed traces from raw traces~\footnote{As described in the technical report RT-427~\cite{pagano:hal}, a processed trace is a trace created by an analysis tool as the result of an analysis on another trace.}. 
 Then, in each of these two categories, traces are grouped by type. 
@@ -168,7 +167,7 @@ If more traces are selected, only the \emph{Delete Trace} entry is displayed in 
 Note that if one or more traces are deleted, an update notification is sent to the other views.
 This allows a view to do the necessary actions if the trace it displays has been deleted.
 
-The view toolbar contains three buttons: a couple of buttons to expand/collapse the trace hierarchy and a button to manually resynchronize the displayed traces with the information contained in the FrameSoC System DB (see the technical report RT-427~\cite{pagano:hal} for further details on the database architecture).
+The view toolbar contains three buttons: a couple of buttons to expand/collapse the trace hierarchy and a button to manually resynchronize the displayed traces with the information contained in the Framesoc System DB (see the technical report RT-427~\cite{pagano:hal} for further details on the database architecture).
 
 %------------------------------------------------------------------
 \subsection{Trace Metadata Viewer/Editor}
@@ -181,7 +180,7 @@ The view toolbar contains three buttons: a couple of buttons to expand/collapse 
   \label{fig:metadata_editing}
 \end{figure}
 
-The \emph{Trace Details} view (Figure~\ref{fig:metadata_editing} is the FrameSoC perspective trace metadata viewer and editor.
+The \emph{Trace Details} view (Figure~\ref{fig:metadata_editing} is the Framesoc perspective trace metadata viewer and editor.
 When a trace is open or selected in the \emph{Traces} view, the trace metadata are displayed in a table viewer containing two columns: the property name and the property value. 
 The different properties are grouped in two different categories: predefined properties (displayed first) and custom properties (displayed last). 
 Those categories are identified by two different icons.
@@ -212,7 +211,7 @@ For these properties the editing support is still working, with the note that al
   \label{fig:pie_chart}
 \end{figure}
 
-The \emph{Statistics Pie Chart} view (Figure~\ref{fig:pie_chart}) is a FrameSoC analysis view presenting several metrics in the form of a pie chart.
+The \emph{Statistics Pie Chart} view (Figure~\ref{fig:pie_chart}) is a Framesoc analysis view presenting several metrics in the form of a pie chart.
 The view is composed of two parts.
 On the top left, there are the metric selector and a \emph{play} button to load the metric. 
 At the bottom left, there is the actual pie chart.
@@ -245,7 +244,7 @@ Note that when a \emph{Statistics Pie Chart} view is opened for a given trace us
   \label{fig:histogram_zoom}
 \end{figure}
 
-The \emph{Event Density Chart} view (Figure~\ref{fig:histogram_zoom}) is a FrameSoC analysis view displaying the event density over time in the form of a histogram.
+The \emph{Event Density Chart} view (Figure~\ref{fig:histogram_zoom}) is a Framesoc analysis view displaying the event density over time in the form of a histogram.
 The $x$ axis represents the time, while the $y$ axis represents the number of events.
 The histogram number of bins is fixed and has been chosen in order to ensure a clear visualization, taking into account the number of pixels actually present on a screen. 
 The user can zoom and dezoom portions of the chart, using the mouse as shown in Figure~\ref{fig:histogram_zoom}.
@@ -268,7 +267,7 @@ Note that, for the computation of the event density, all the events of the trace
   \label{fig:table_regex}
 \end{figure}
 
-The \emph{Events} view (Figure~\ref{fig:table_regex}) is a FrameSoC analysis view showing a tabular representation of trace events.
+The \emph{Events} view (Figure~\ref{fig:table_regex}) is a Framesoc analysis view showing a tabular representation of trace events.
 The main element of this view is a table viewer, displaying a distinct row for each event of the trace.
 This table has the following columns:
 \begin{itemize}
@@ -309,10 +308,10 @@ In order to modify the time window visualized in the double range slider the use
 The view toolbar contains an \emph{adjust} button, which triggers column width resizing in order to fit the actual content.
 
 %------------------------------------------------------------------
-\section{FrameSoC Menu and Toolbar}
+\section{Framesoc Menu and Toolbar}
 \label{sec:menu}
 
-When the FrameSoC perspective is activated, the FrameSoC menu (Figure~\ref{fig:menu}) and the corresponding toolbar (Figure~\ref{fig:toolbar}) are visible. 
+When the Framesoc perspective is activated, the Framesoc menu (Figure~\ref{fig:menu}) and the corresponding toolbar (Figure~\ref{fig:toolbar}) are visible. 
 
 In the menu, the different functionalities are grouped in two categories: management and trace analysis.
 The management menu (Figure~\ref{fig:menu_management}) allows the user to access system configuration, tool management and color management.
@@ -336,14 +335,14 @@ In the following subsections, the functionalities accessible from the menu or th
     \caption{Trace Analysis Menu}
     \label{fig:menu_trace_analysis}
   \end{subfigure}
-  \caption{FrameSoC Menu}
+  \caption{Framesoc Menu}
   \label{fig:menu}
 \end{figure}
 
 \begin{figure}[h!]
   \centering
     \includegraphics[width=0.4\textwidth]{images/toolbar.png}
-  \caption{FrameSoC Toolbar}
+  \caption{Framesoc Toolbar}
   \label{fig:toolbar}
 \end{figure}
 
@@ -352,7 +351,7 @@ In the following subsections, the functionalities accessible from the menu or th
 
 At system initialization, the user accesses a configuration wizard, whose first page is shown in Figure~\ref{fig:dbms_selection}. 
 This page allows the user to select the DBMS\footnote{Data Base Management System} to be used for trace storage.
-In fact, as described in the technical report RT-435~\cite{pagano:hal-00830008}, FrameSoC can work with several DBMS.
+In fact, as described in the technical report RT-435~\cite{pagano:hal-00830008}, Framesoc can work with several DBMS.
 At the moment, the support has been implemented for SQLite (recommended) and MySQL.
 
 \begin{figure}[h!]
@@ -366,9 +365,9 @@ Once the user has chosen the DBMS and pressed \emph{Next}, he comes to the DBMS 
 If SQLite is selected (Figure~\ref{fig:dbms_configuration_sqlite}), the user has simply to enter the directory where he wants the database files to be kept.
 Otherwise, if MySQL is chosen (Figure~\ref{fig:dbms_configuration_mysql}), the user has to specify some connection parameters (user-name, password, URL).
 
-In both cases, after pressing \emph{Finish}, the FrameSoC storage subsystem is correctly configured. 
+In both cases, after pressing \emph{Finish}, the Framesoc storage subsystem is correctly configured. 
 If a System DB already exists, it is reused, otherwise a new one is created.
-This configuration is saved in the FrameSoC configuration file (Appendix~\ref{app:conf}). %% $\sim$/.soctrace.conf
+This configuration is saved in the Framesoc configuration file (Appendix~\ref{app:conf}). %% $\sim$/.soctrace.conf
 
 \begin{figure}[h!]
  \centering
@@ -387,12 +386,12 @@ This configuration is saved in the FrameSoC configuration file (Appendix~\ref{ap
  \label{fig:dbms_configuration}       
 \end{figure}
 
-Note that after the initialization, in the case of existing System DB, if there is a mismatch between the tools registered in this System DB and the tools actually present in the FrameSoC Eclipse runtime\footnote{As described in the technical report RT-435~\cite{pagano:hal-00830008} the preferred way to add tools to FrameSoC is to create an Eclipse plugin, extending a specific extension point defined by FrameSoC. For this reason a tool is typically a plugin in the FrameSoC Eclipse runtime.}, this is automatically fixed:
+Note that after the initialization, in the case of existing System DB, if there is a mismatch between the tools registered in this System DB and the tools actually present in the Framesoc Eclipse runtime\footnote{As described in the technical report RT-435~\cite{pagano:hal-00830008} the preferred way to add tools to Framesoc is to create an Eclipse plugin, extending a specific extension point defined by Framesoc. For this reason a tool is typically a plugin in the Framesoc Eclipse runtime.}, this is automatically fixed:
 \begin{itemize}
  \item If a tool exists in the DB but not in the runtime, the tool is removed with its results (if any), after user confirmation.
  \item If a tool exists in the runtime but not in the DB, the tool is automatically registered.
 \end{itemize}
-Note also that at each FrameSoC startup, the system automatically checks that the storage configuration is good. 
+Note also that at each Framesoc startup, the system automatically checks that the storage configuration is good. 
 If it is not the case, the system initialization wizard is automatically launched.
 A control for mismatch between runtime tools and System DB tools is equally done at each startup, with the same policy as described above.
 
@@ -451,7 +450,7 @@ For example, the relative path to eclipse install directory of the event type co
     \caption{Color editing dialog}
     \label{fig:color_editing}       
   \end{subfigure}%
-  \caption{FrameSoC Color Management}
+  \caption{Framesoc Color Management}
   \label{fig:colors}       
  \end{figure}
 
@@ -506,21 +505,21 @@ The  trace export dialog (Figure~\ref{fig:export_dialog}) works exactly as the l
 \appendix
 
 %%=====================================================================
-\section{FrameSoC Configuration File}
+\section{Framesoc Configuration File}
 \label{app:conf}
 %%=====================================================================
 
-The FrameSoC configuration file (\texttt{.soctrace.conf}) is located in the user home directory.
+The Framesoc configuration file (\texttt{.soctrace.conf}) is located in the user home directory.
 It is automatically generated and mostly configurable using the GUI.
 
 The file contains the following parameters:
 \begin{description}
- \item[soctrace\_dbms]: DBMS used by FrameSoC. The accepted values are: sqlite, mysql.
+ \item[soctrace\_dbms]: DBMS used by Framesoc. The accepted values are: sqlite, mysql.
  \item[mysql\_db\_user]: MySQL database user name.
  \item[mysql\_db\_password]: MySQL database user name.
  \item[mysql\_base\_db\_jdbc\_url]: MySQL database connection URL.
  \item[sqlite\_db\_directory]: Directory containing the SQLite database files.
- \item[soctrace\_db\_name]: Name of the FrameSoC System DB.
+ \item[soctrace\_db\_name]: Name of the Framesoc System DB.
  \item[max\_view\_instances]: Maximum number of instances for a given type of analysis views.
 \end{description}
 
