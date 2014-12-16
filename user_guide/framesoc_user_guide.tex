@@ -248,7 +248,6 @@ In the example shown in Figure~\ref{fig:new_metadata}, after pressing \emph{OK},
 
 Note that if more than one trace is selected in the \emph{Traces} view, it is still possible to edit, add or remove properties.
 
-
 %=====================================================================
 \section{Analysis Views}
 \label{sec:analysis}
@@ -257,6 +256,8 @@ Note that if more than one trace is selected in the \emph{Traces} view, it is st
 %------------------------------------------------------------------
 \subsection{Statistics Pie Chart}
 \label{subsec:pie}
+
+%%% TODO
 
 \begin{figure}[h!]
   \centering
@@ -291,6 +292,8 @@ Note that when a \emph{Statistics Pie Chart} view is opened for a given trace us
 \subsection{Event Density Chart}
 \label{subsec:histogram}
 
+%%% TODO
+
 \begin{figure}[h!]
   \centering
     \includegraphics[width=1.0\textwidth]{images/histogram_zoom.png}
@@ -313,6 +316,8 @@ Note that, for the computation of the event density, all the events of the trace
 %------------------------------------------------------------------
 \subsection{Event Table View}
 \label{subsec:table}
+
+%%% TODO
 
 \begin{figure}[h!]
   \centering
@@ -362,8 +367,16 @@ In order to modify the time window visualized in the double range slider the use
 The view toolbar contains an \emph{adjust} button, which triggers column width resizing in order to fit the actual content.
 
 %------------------------------------------------------------------
+\subsection{Gantt Chart View}
+\label{subsec:gantt}
+
+%%% TODO
+
+%------------------------------------------------------------------
 \section{Framesoc Menu and Toolbar}
 \label{sec:menu}
+
+%%% TODO
 
 When the Framesoc perspective is activated, the Framesoc menu (Figure~\ref{fig:menu}) and the corresponding toolbar (Figure~\ref{fig:toolbar}) are visible. 
 
@@ -402,6 +415,8 @@ In the following subsections, the functionalities accessible from the menu or th
 
 \subsection{System Initialization}
 \label{subsec:init}
+
+%%% TODO
 
 At system initialization, the user accesses a configuration wizard, whose first page is shown in Figure~\ref{fig:dbms_selection}. 
 This page allows the user to select the DBMS\footnote{Data Base Management System} to be used for trace storage.
@@ -452,6 +467,8 @@ A control for mismatch between runtime tools and System DB tools is equally done
 \subsection{Tool Management}
 \label{subsec:tools}
 
+%%% TODO
+
 The tools management dialog (Figure~\ref{fig:manage_tools}) simply displays the list of tools registered to the system, 
 enabling the installation, modification and removal of external \emph{black-box} tools (tools that are not eclipse plugins).
 
@@ -479,6 +496,8 @@ Plugin tools are installed and removed using the normal Eclipse procedure (Help 
 
 \subsection{Color Management}
 \label{subsec:colors}
+
+%%% TODO
 
 The color management dialog (Figure~\ref{fig:color_type_list_MPI}) allows the user to modify the colors associated to event producers and event types in a centralized way for the whole workbench.
 The combo box at the top of the dialog enables the selection of the entity (event producer or event type).
@@ -513,6 +532,8 @@ Note that when OK is pressed after changing some colors, the workbench modules a
 \subsection{Trace Import}
 \label{subsec:import}
 
+%%% TODO
+
 The trace import dialog (Figure~\ref{fig:import_dialog}) allows the user to import a new trace into the system using one of the registered importer tools.
 The user selects the importer from the combo box at the top, then he specifies the trace files (if more than one file is needed, all the files should be selected in the browser dialog opened when the \emph{Browse} button is pressed). 
 If the importer requires additional parameters (the \emph{Doc} field normally provides this information), the user specifies these parameters too.
@@ -530,6 +551,8 @@ At the end of this process, the trace browser view is automatically updated with
 \subsection{Launch Analysis Tool}
 \label{subsec:analysis}
 
+%%% TODO
+
 The launch analysis tool dialog (Figure~\ref{fig:analysis_dialog}) allows the user to launch one of the analysis tools registered to the system.
 The user selects the analysis tool from the combo box at the top. 
 If the tool requires additional parameters (the \emph{Doc} field normally provides this information), the user specifies these parameters too. 
@@ -544,6 +567,8 @@ Finally, after pressing \emph{OK}, the tool is launched.
 
 \subsection{Trace Export }
 \label{subsec:export}
+
+%%% TODO
 
 The  trace export dialog (Figure~\ref{fig:export_dialog}) works exactly as the launch analysis tool dialog, with the difference that this time the user can launch one of the exporter tools registered to the system.
 
@@ -575,6 +600,8 @@ The file contains the following parameters:
  \item[sqlite\_db\_directory]: Directory containing the SQLite database files.
  \item[soctrace\_db\_name]: Name of the Framesoc System DB.
  \item[max\_view\_instances]: Maximum number of instances for a given type of analysis views.
+ \item[trace\_db\_indexing]: Boolean stating if automatic time indexing is done at trace import.
+ \item[ask\_for\_tool\_removal]: Boolean stating if user confirmation must be asked when removing a tool and its results.
 \end{description}
 
 %% bibliography
