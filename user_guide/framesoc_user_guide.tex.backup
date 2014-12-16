@@ -29,13 +29,13 @@
 Generoso Pagano \thanks{INRIA, generoso.pagano@inria.fr}
 }
 %% On each even page
-\authorhead{Framesoc User Guide [DRAFT]}
+\authorhead{Framesoc User Guide}
 %% French title
-\RRtitle{Framesoc User Guide [DRAFT]}
+\RRtitle{Framesoc User Guide}
 %% English title
-\RRetitle{Framesoc User Guide [DRAFT]}
+\RRetitle{Framesoc User Guide}
 %%
-\titlehead{Framesoc User Guide [DRAFT]}
+\titlehead{Framesoc User Guide}
 %%
 \RRprojet{MESCAL}
 %%
@@ -237,12 +237,12 @@ The other two buttons in the toolbar (\num{3} and \num{4}) allows for adding and
   \label{fig:new_metadata}
 \end{figure}
 
-In the example shown in Figure~\ref{fig:new_metadata}, after pressing \emph{OK}, a new trace property \texttt{ISSUE} of type \texttt{INTEGER} and value \texttt{11} is added to the selected trace. The trace metadata will therefore look as shown in Figure~\ref{fig:metadata_remove}. In this figure it is possible to see that, when selecting a custom property, the \emph{Remove property} button (indicated as \num{4} in Figure~\ref{fig:metadata_editing}, where it is disabled) is enabled and can be used to remove the selected custom property.
+In the example shown in Figure~\ref{fig:new_metadata}, after pressing \emph{OK}, a new trace metadata \texttt{ISSUE} of type \texttt{INTEGER} and value \texttt{11} is added to the selected trace. The trace metadata will therefore look as shown in Figure~\ref{fig:metadata_remove}. In this figure it is possible to see that, when selecting a custom property, the \emph{Remove parameter} button (indicated as \num{4} in Figure~\ref{fig:metadata_editing}) is enabled and can be used to remove this custom parameter.
 
 \begin{figure}[h!]
   \centering
     \includegraphics[width=0.5\textwidth]{images/metadata_remove.png}
-  \caption{Trace Details view after adding a custom property (ISSUE)}
+  \caption{Trace Details view after adding a custom parameter (ISSUE)}
   \label{fig:metadata_remove}
 \end{figure}
 
