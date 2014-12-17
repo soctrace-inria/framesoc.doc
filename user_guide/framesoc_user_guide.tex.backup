@@ -29,13 +29,13 @@
 Generoso Pagano \thanks{INRIA, generoso.pagano@inria.fr}
 }
 %% On each even page
-\authorhead{Framesoc User Guide}
+\authorhead{Framesoc User Guide [DRAFT]}
 %% French title
-\RRtitle{Framesoc User Guide}
+\RRtitle{Framesoc User Guide [DRAFT]}
 %% English title
-\RRetitle{Framesoc User Guide}
+\RRetitle{Framesoc User Guide [DRAFT]}
 %%
-\titlehead{Framesoc User Guide}
+\titlehead{Framesoc User Guide [DRAFT]}
 %%
 \RRprojet{MESCAL}
 %%
@@ -237,17 +237,16 @@ The other two buttons in the toolbar (\num{3} and \num{4}) allows for adding and
   \label{fig:new_metadata}
 \end{figure}
 
-In the example shown in Figure~\ref{fig:new_metadata}, after pressing \emph{OK}, a new trace metadata \texttt{ISSUE} of type \texttt{INTEGER} and value \texttt{11} is added to the selected trace. The trace metadata will therefore look as shown in Figure~\ref{fig:metadata_remove}. In this figure it is possible to see that, when selecting a custom property, the \emph{Remove parameter} button (indicated as \num{4} in Figure~\ref{fig:metadata_editing}) is enabled and can be used to remove this custom parameter.
+In the example shown in Figure~\ref{fig:new_metadata}, after pressing \emph{OK}, a new trace property \texttt{ISSUE} of type \texttt{INTEGER} and value \texttt{11} is added to the selected trace. The trace metadata will therefore look as shown in Figure~\ref{fig:metadata_remove}. In this figure it is possible to see that, when selecting a custom property, the \emph{Remove property} button (indicated as \num{4} in Figure~\ref{fig:metadata_editing}, where it is disabled) is enabled and can be used to remove the selected custom property.
 
 \begin{figure}[h!]
   \centering
     \includegraphics[width=0.5\textwidth]{images/metadata_remove.png}
-  \caption{Trace Details view after adding a custom parameter (ISSUE)}
+  \caption{Trace Details view after adding a custom property (ISSUE)}
   \label{fig:metadata_remove}
 \end{figure}
 
 Note that if more than one trace is selected in the \emph{Traces} view, it is still possible to edit, add or remove properties.
-
 
 %=====================================================================
 \section{Analysis Views}
@@ -257,6 +256,8 @@ Note that if more than one trace is selected in the \emph{Traces} view, it is st
 %------------------------------------------------------------------
 \subsection{Statistics Pie Chart}
 \label{subsec:pie}
+
+%%% TODO
 
 \begin{figure}[h!]
   \centering
@@ -291,6 +292,8 @@ Note that when a \emph{Statistics Pie Chart} view is opened for a given trace us
 \subsection{Event Density Chart}
 \label{subsec:histogram}
 
+%%% TODO
+
 \begin{figure}[h!]
   \centering
     \includegraphics[width=1.0\textwidth]{images/histogram_zoom.png}
@@ -313,6 +316,8 @@ Note that, for the computation of the event density, all the events of the trace
 %------------------------------------------------------------------
 \subsection{Event Table View}
 \label{subsec:table}
+
+%%% TODO
 
 \begin{figure}[h!]
   \centering
@@ -360,6 +365,12 @@ In order to modify the time window visualized in the double range slider the use
 \end{figure}
 
 The view toolbar contains an \emph{adjust} button, which triggers column width resizing in order to fit the actual content.
+
+%------------------------------------------------------------------
+\subsection{Gantt Chart View}
+\label{subsec:gantt}
+
+%%% TODO
 
 %------------------------------------------------------------------
 \section{Framesoc Menu and Toolbar}
@@ -442,17 +453,21 @@ This configuration is saved in the Framesoc configuration file (Appendix~\ref{ap
 
 Note that after the initialization, in the case of existing System DB, if there is a mismatch between the tools registered in this System DB and the tools actually present in the Framesoc Eclipse runtime\footnote{As described in the technical report RT-435~\cite{pagano:hal-00830008} the preferred way to add tools to Framesoc is to create an Eclipse plugin, extending a specific extension point defined by Framesoc. For this reason a tool is typically a plugin in the Framesoc Eclipse runtime.}, this is automatically fixed:
 \begin{itemize}
- \item If a tool exists in the DB but not in the runtime, the tool is removed with its results (if any), after user confirmation.
+ \item If a tool exists in the DB but not in the runtime, the tool is removed with its results (if any)\footnote{The user is asked for confirmation if the \texttt{ask\_for\_tool\_removal} variable is set to \texttt{true} in Framesoc configuration file (see Appendix~\ref{app:conf})}.
  \item If a tool exists in the runtime but not in the DB, the tool is automatically registered.
 \end{itemize}
+
 Note also that at each Framesoc startup, the system automatically checks that the storage configuration is good. 
 If it is not the case, the system initialization wizard is automatically launched.
+
 A control for mismatch between runtime tools and System DB tools is equally done at each startup, with the same policy as described above.
 
 \subsection{Tool Management}
 \label{subsec:tools}
 
-The tools management dialog (Figure~\ref{fig:manage_tools}) simply displays the list of tools registered to the system, 
+%%% TODO
+
+The tool management dialog (Figure~\ref{fig:manage_tools}) simply displays the list of tools registered to the system, 
 enabling the installation, modification and removal of external \emph{black-box} tools (tools that are not eclipse plugins).
 
 \begin{figure}[h!]
@@ -470,21 +485,23 @@ enabling the installation, modification and removal of external \emph{black-box}
 \end{figure}
 
 Adding or modifying a \emph{black-box} tool requires the user to edit the different fields of the dialog displayed in Figure~\ref{fig:blackbox}.
-In particular, the user has to pick a unique tool name, specify the launching command, select the tool type (import, analysis, export), write the launching documentation.
+In particular, the user has to pick a unique tool name, specify the launch command, select the tool type (import, analysis, export), write the launch documentation.
 
 Note that the use of external \emph{black-box} tools is discouraged, since most of the functionalities available using Eclipse plugins are not available.
 
 Note also that plugin tools cannot be added, edited or removed via the manage tool dialog, since they are managed as standard Eclipse plugins.
-Plugin tools are installed and removed using the normal Eclipse procedure (Help > Install New Software... menu). 
+Plugin tools are installed and removed using the normal Eclipse procedure (\textbf{Help > Install New Software...} menu). 
 
 \subsection{Color Management}
 \label{subsec:colors}
 
+%%% TODO
+
 The color management dialog (Figure~\ref{fig:color_type_list_MPI}) allows the user to modify the colors associated to event producers and event types in a centralized way for the whole workbench.
-The combo box at the top of the dialog enables the selection of the entity (event producer or event type).
-The list below enumerates all the entities, preceded by a small squared icon filled with the entity color.
+The combo box at the top of the dialog (\num{1}) enables the selection of the entity (event producer or event type).
+The list below enumerates all instances for a given entity, preceded by a small square icon filled with the instance color.
 The editable text field on top of this list can be used as a filter on the list.
-When an entity is selected, pressing the \emph{edit} button gives access to the color edition dialog (Figure~\ref{fig:color_editing}).
+When an entity instance is selected, pressing the \emph{edit} button gives access to the color edition dialog (Figure~\ref{fig:color_editing}).
 Pressing \emph{OK} saves all changes.
 Pressing the \emph{reset} button (under the \emph{edit} button), reverts unsaved changes.
 The color configuration for a given entity is physically stored in a configuration file located in the \texttt{configuration/fr.inria.soctrace.framesoc.ui} sub-folder of the eclipse install directory.
@@ -513,6 +530,8 @@ Note that when OK is pressed after changing some colors, the workbench modules a
 \subsection{Trace Import}
 \label{subsec:import}
 
+%%% TODO
+
 The trace import dialog (Figure~\ref{fig:import_dialog}) allows the user to import a new trace into the system using one of the registered importer tools.
 The user selects the importer from the combo box at the top, then he specifies the trace files (if more than one file is needed, all the files should be selected in the browser dialog opened when the \emph{Browse} button is pressed). 
 If the importer requires additional parameters (the \emph{Doc} field normally provides this information), the user specifies these parameters too.
@@ -530,6 +549,8 @@ At the end of this process, the trace browser view is automatically updated with
 \subsection{Launch Analysis Tool}
 \label{subsec:analysis}
 
+%%% TODO
+
 The launch analysis tool dialog (Figure~\ref{fig:analysis_dialog}) allows the user to launch one of the analysis tools registered to the system.
 The user selects the analysis tool from the combo box at the top. 
 If the tool requires additional parameters (the \emph{Doc} field normally provides this information), the user specifies these parameters too. 
@@ -544,6 +565,8 @@ Finally, after pressing \emph{OK}, the tool is launched.
 
 \subsection{Trace Export }
 \label{subsec:export}
+
+%%% TODO
 
 The  trace export dialog (Figure~\ref{fig:export_dialog}) works exactly as the launch analysis tool dialog, with the difference that this time the user can launch one of the exporter tools registered to the system.
 
@@ -575,6 +598,8 @@ The file contains the following parameters:
  \item[sqlite\_db\_directory]: Directory containing the SQLite database files.
  \item[soctrace\_db\_name]: Name of the Framesoc System DB.
  \item[max\_view\_instances]: Maximum number of instances for a given type of analysis views.
+ \item[trace\_db\_indexing]: Boolean stating if automatic time indexing is done at trace import.
+ \item[ask\_for\_tool\_removal]: Boolean stating if user confirmation must be asked when removing a tool and its results.
 \end{description}
 
 %% bibliography

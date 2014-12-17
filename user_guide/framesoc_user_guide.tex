@@ -472,38 +472,36 @@ enabling the installation, modification and removal of external \emph{black-box}
 
 \begin{figure}[h!]
   \centering
-    \includegraphics[width=0.4\textwidth]{images/manage_tools.png}
+    \includegraphics[width=0.5\textwidth]{images/manage_tools.png}
   \caption{Tool manager}
   \label{fig:manage_tools}
 \end{figure}
 
 \begin{figure}[h!]
   \centering
-    \includegraphics[width=0.4\textwidth]{images/blackbox.png}
+    \includegraphics[width=0.5\textwidth]{images/blackbox.png}
   \caption{Black-box tool dialog}
   \label{fig:blackbox}
 \end{figure}
 
 Adding or modifying a \emph{black-box} tool requires the user to edit the different fields of the dialog displayed in Figure~\ref{fig:blackbox}.
-In particular, the user has to pick a unique tool name, specify the launching command, select the tool type (import, analysis, export), write the launching documentation.
+In particular, the user has to pick a unique tool name, specify the launch command, select the tool type (import, analysis, export), write the launch documentation.
 
 Note that the use of external \emph{black-box} tools is discouraged, since most of the functionalities available using Eclipse plugins are not available.
 
 Note also that plugin tools cannot be added, edited or removed via the manage tool dialog, since they are managed as standard Eclipse plugins.
-Plugin tools are installed and removed using the normal Eclipse procedure (Help > Install New Software... menu). 
+Plugin tools are installed and removed using the normal Eclipse procedure (\textbf{Help > Install New Software...} menu). 
 
 \subsection{Color Management}
 \label{subsec:colors}
 
-%%% TODO
-
 The color management dialog (Figure~\ref{fig:color_type_list_MPI}) allows the user to modify the colors associated to event producers and event types in a centralized way for the whole workbench.
-The combo box at the top of the dialog enables the selection of the entity (event producer or event type).
-The list below enumerates all the entities, preceded by a small squared icon filled with the entity color.
+The combo box at the top of the dialog (\num{1}) enables the selection of the entity (event producer or event type).
+The list below enumerates all instances for a given entity, preceded by a small square icon filled with the instance color.
 The editable text field on top of this list can be used as a filter on the list.
-When an entity is selected, pressing the \emph{edit} button gives access to the color edition dialog (Figure~\ref{fig:color_editing}).
+When an entity instance is selected, pressing the \emph{edit} button (\num{2}) gives access to the color edition dialog (Figure~\ref{fig:color_editing}).
 Pressing \emph{OK} saves all changes.
-Pressing the \emph{reset} button (under the \emph{edit} button), reverts unsaved changes.
+Pressing the \emph{reset} button (\num{3}), reverts unsaved changes.
 The color configuration for a given entity is physically stored in a configuration file located in the \texttt{configuration/fr.inria.soctrace.framesoc.ui} sub-folder of the eclipse install directory.
 For example, the relative path to eclipse install directory of the event type color configuration file is:
 \texttt{configuration/fr.inria.soctrace.framesoc.ui/event\_type\_colors}.
@@ -525,23 +523,22 @@ For example, the relative path to eclipse install directory of the event type co
   \label{fig:colors}       
  \end{figure}
 
-Note that when OK is pressed after changing some colors, the workbench modules are notified and the views may react by updating their colors in real-time (as done by the Pie Chart for example).
+Note that when \emph{OK} is pressed after changing some colors, the workbench modules are notified and the views may react by updating their colors in real-time.
 
 \subsection{Trace Import}
 \label{subsec:import}
 
-%%% TODO
-
 The trace import dialog (Figure~\ref{fig:import_dialog}) allows the user to import a new trace into the system using one of the registered importer tools.
 The user selects the importer from the combo box at the top, then he specifies the trace files (if more than one file is needed, all the files should be selected in the browser dialog opened when the \emph{Browse} button is pressed). 
 If the importer requires additional parameters (the \emph{Doc} field normally provides this information), the user specifies these parameters too.
+At the botton of the dialog, there is an \emph{Error Message} zone, intended to inform the user about any error in the input.
 
-Finally, after pressing \emph{OK}, the import process is launched.
+Finally, after pressing \emph{OK}, the import process is launched with the provided input.
 At the end of this process, the trace browser view is automatically updated with the new trace information.
 
 \begin{figure}[h!]
   \centering
-    \includegraphics[width=0.4\textwidth]{images/import_dialog.png}
+    \includegraphics[width=0.5\textwidth]{images/import_dialog.png}
   \caption{Import trace dialog}
   \label{fig:import_dialog}
 \end{figure}
@@ -549,16 +546,15 @@ At the end of this process, the trace browser view is automatically updated with
 \subsection{Launch Analysis Tool}
 \label{subsec:analysis}
 
-%%% TODO
-
 The launch analysis tool dialog (Figure~\ref{fig:analysis_dialog}) allows the user to launch one of the analysis tools registered to the system.
 The user selects the analysis tool from the combo box at the top. 
 If the tool requires additional parameters (the \emph{Doc} field normally provides this information), the user specifies these parameters too. 
-Finally, after pressing \emph{OK}, the tool is launched. 
+At the botton of the dialog, there is an \emph{Error Message} zone, intended to inform the user about any error in the input.
+Finally, after pressing \emph{OK}, the tool is launched with the provided input. 
 
 \begin{figure}[h!]
   \centering
-    \includegraphics[width=0.4\textwidth]{images/analysis_dialog.png}
+    \includegraphics[width=0.5\textwidth]{images/analysis_dialog.png}
   \caption{Launch analysis dialog}
   \label{fig:analysis_dialog}
 \end{figure}
@@ -566,13 +562,11 @@ Finally, after pressing \emph{OK}, the tool is launched.
 \subsection{Trace Export }
 \label{subsec:export}
 
-%%% TODO
-
 The  trace export dialog (Figure~\ref{fig:export_dialog}) works exactly as the launch analysis tool dialog, with the difference that this time the user can launch one of the exporter tools registered to the system.
 
 \begin{figure}[h!]
   \centering
-    \includegraphics[width=0.4\textwidth]{images/export_dialog.png}
+    \includegraphics[width=0.5\textwidth]{images/export_dialog.png}
   \caption{Export trace dialog}
   \label{fig:export_dialog}
 \end{figure}
