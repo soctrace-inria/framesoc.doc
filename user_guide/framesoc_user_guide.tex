@@ -420,6 +420,47 @@ The view toolbar contains an \emph{adjust} button, which triggers column width r
 
 %%% TODO
 
+\begin{figure}[h!]
+  \centering
+    \includegraphics[width=1.0\textwidth]{images/gantt.png}
+  \caption{Gantt Chart view}
+  \label{fig:gantt}
+\end{figure}
+
+This view (Figure~\ref{fig:gantt} shows a Gantt chart representation of trace events.
+This kind of representation is pretty common in trace analysis frameworks (e.g., Lttng Eclipse Viewer~\cite{lttng_viewer}) and is classically used to visualize application behavior over time, thanks to its ability to represent causality relations~\cite{wilson_gantt_2003}.
+%%% TODO
+The main element of this view is a Gantt viewer\footnote{TODO cite trace compass}, which is composed of two parts.
+On the left there is the hierarchy of event producers, grouped by CPU. 
+On the right there is the actual time chart, showing for each producer all the punctual events it generates (represented as simple vertical lines) and all the states it spends time in (represented as colored rectangles). 
+If there are links in the trace (e.g., communications), they are represented as oriented arrows.
+Note that the colors used to fill the rectangles depend on the event type.
+For a given event type, the same color is used in this Gantt view and in the Pie Chart view (Subsection~\ref{subsec:pie}).
+Note that hovering the mouse on a given state, triggers the displaying of a tooltip showing the event type name (Figure~\ref{fig:gantt_tooltip}).
+
+The view toolbar contains the following buttons:
+ \begin{itemize}
+  \item Six buttons enable six different modes, where a mode defines the behavior of a mouse click on the time chart:
+  \begin{itemize}
+   \item Select mode: it is possible to select with the mouse a time region in the time chart.
+   \item Drag mode: it is possible to drag the time chart with the mouse.
+   \item Horizontal Zoom In
+   \item Horizontal Zoom Out
+   \item Vertical Zoom In
+   \item Vertical Zoom Out
+  \end{itemize}
+  \item The \emph{adjust} button triggers the resize of content to fit the view size.
+  \item The \emph{clock} button enables/disables the time compression feature: if enabled, this feature hides large time regions without events.
+  \item The \emph{show all} button triggers the loading of the whole trace in the Gantt.
+  \item The \emph{table} button triggers the visualization of the current loaded time window in the Event Table view.
+ \end{itemize}
+
+Under the Gantt viewer, there is a status bar displaying the trace time unit, the timestamp currently under the mouse cursor and the selected interval duration, if any.
+
+Under the status bar, at the bottom of the view, there is a time management bar, which has exactly the same behavior as the one in the Event Table view (see Subsection~\ref{subsec:table} for the details).
+As it happens for the table, a new time window is loaded in the Gantt viewer only on demand, when the \emph{play} button is pressed.
+Note that this time, given that it is possible to select a time region also on the Gantt viewer (if in selection mode), the selections in the viewer and in the double range slider are always synchronized, thus helping trace navigation.
+
 %------------------------------------------------------------------
 \section{Framesoc Menu and Toolbar}
 \label{sec:menu}
