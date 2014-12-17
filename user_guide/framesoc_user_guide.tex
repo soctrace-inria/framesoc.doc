@@ -376,8 +376,6 @@ The view toolbar contains an \emph{adjust} button, which triggers column width r
 \section{Framesoc Menu and Toolbar}
 \label{sec:menu}
 
-%%% TODO
-
 When the Framesoc perspective is activated, the Framesoc menu (Figure~\ref{fig:menu}) and the corresponding toolbar (Figure~\ref{fig:toolbar}) are visible. 
 
 In the menu, the different functionalities are grouped in two categories: management and trace analysis.
@@ -415,8 +413,6 @@ In the following subsections, the functionalities accessible from the menu or th
 
 \subsection{System Initialization}
 \label{subsec:init}
-
-%%% TODO
 
 At system initialization, the user accesses a configuration wizard, whose first page is shown in Figure~\ref{fig:dbms_selection}. 
 This page allows the user to select the DBMS\footnote{Data Base Management System} to be used for trace storage.
@@ -457,11 +453,13 @@ This configuration is saved in the Framesoc configuration file (Appendix~\ref{ap
 
 Note that after the initialization, in the case of existing System DB, if there is a mismatch between the tools registered in this System DB and the tools actually present in the Framesoc Eclipse runtime\footnote{As described in the technical report RT-435~\cite{pagano:hal-00830008} the preferred way to add tools to Framesoc is to create an Eclipse plugin, extending a specific extension point defined by Framesoc. For this reason a tool is typically a plugin in the Framesoc Eclipse runtime.}, this is automatically fixed:
 \begin{itemize}
- \item If a tool exists in the DB but not in the runtime, the tool is removed with its results (if any), after user confirmation.
+ \item If a tool exists in the DB but not in the runtime, the tool is removed with its results (if any)\footnote{The user is asked for confirmation if the \texttt{ask\_for\_tool\_removal} variable is set to \texttt{true} in Framesoc configuration file (see Appendix~\ref{app:conf})}.
  \item If a tool exists in the runtime but not in the DB, the tool is automatically registered.
 \end{itemize}
+
 Note also that at each Framesoc startup, the system automatically checks that the storage configuration is good. 
 If it is not the case, the system initialization wizard is automatically launched.
+
 A control for mismatch between runtime tools and System DB tools is equally done at each startup, with the same policy as described above.
 
 \subsection{Tool Management}
@@ -469,7 +467,7 @@ A control for mismatch between runtime tools and System DB tools is equally done
 
 %%% TODO
 
-The tools management dialog (Figure~\ref{fig:manage_tools}) simply displays the list of tools registered to the system, 
+The tool management dialog (Figure~\ref{fig:manage_tools}) simply displays the list of tools registered to the system, 
 enabling the installation, modification and removal of external \emph{black-box} tools (tools that are not eclipse plugins).
 
 \begin{figure}[h!]
