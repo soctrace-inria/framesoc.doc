@@ -253,6 +253,76 @@ Note that if more than one trace is selected in the \emph{Traces} view, it is st
 \label{sec:analysis}
 %=====================================================================
 
+
+%------------------------------------------------------------------
+\subsection{General principles}
+\label{subsec:principles}
+
+Before describing in detail the different Framesoc analysis views, we present here some general principles that hold for all such views.
+
+\paragraph{Data management} 
+
+All Framesoc analysis views try to maximize the interactivity and responsiveness of the system by pipelining data loading and visualization. This allows the user to start working with data (or at least visualize it), while the loading job is ongoing. For example, the Gantt chart allows for zooming/dezooming the visualized part of the trace, while trace events are being loaded. 
+
+The user has full control on the loading job, and can stop it when she wants. In this case, the data loaded so far are still available for analysis. To cancel a loading job the user uses the \emph{Progress} view (see for example Figure~\ref{fig:progress} for the \emph{Progress} view showing the Gantt loading process.)
+
+\begin{figure}[h!]
+  \centering
+    \includegraphics[width=0.9\textwidth]{images/loading.png}
+  \caption{Progress view enabling to cancel a loading job}
+  \label{fig:progress}
+\end{figure}
+
+The button indicated as \num{1} requests for stopping the job. The \emph{Progress} view is not shown by default in the Framesoc perspective. To access this view, the user has to click on the button indicated as \num{2}, which is always visible in Eclipse when a job is in progress.
+
+\paragraph{Time management} Each Framesoc view is capable to load and display trace data related to whatever trace time interval: it is not compulsory to load in memory the entire trace; it is possible, on the contrary, to load only a specific sub-interval. For example, the user has the flexibility to load only a specific time window of interest in the Gantt chart, avoiding charging into memory portions of the trace that are not interesting for the analysis.
+
+The user controls the portion of the trace actually loaded into memory and displayed in the analysis view using a time management bar, located at the bottom of each Framesoc analysis view (Figure~\ref{fig:timebar}).
+
+\begin{figure}[h!]
+  \centering
+    \includegraphics[width=0.9\textwidth]{images/time_bar.png}
+  \caption{Time management bar present in all Framesoc analysis view}
+  \label{fig:timebar}
+\end{figure}
+
+This bar contains a double range time slider (\num{1}) representing the whole trace duration, surrounded by two arrow buttons (\num{2} and \num{3}), and followed by four more buttons on the right (\num{4}, \num{5}, \num{6} and \num{7}).
+The two knobs of the double range slider (\num{8} and \num{9}) identify the portion of the trace (colored in black) actually loaded in the table.
+Using this kind of representation, the user always keeps a global visibility on the whole trace, while loading only the information he is interested in.
+In order to change the time window loaded in the view, the user has to change the width of the black bar using the knobs \num{8} and \num{9}.
+However, in order to avoid spurious and useless data transfers (from disk to memory), the change is executed only when the user presses the button indicated as \num{7}.
+The button indicated as \num{6} resynchronizes the time bar with the time window actually loaded in the table, if they differ (i.e., the user modified the interval in the timebar without triggering a load with button \num{7}).
+In order to modify the time window visualized in the double range slider the user has several possibilities. 
+\begin{itemize}
+ \item Graphical selection: it is the most intuitive way and it involves using the two knobs \num{8} and \num{9}, in order to graphically set the two bounds of the time interval.
+ \item Time window navigation: this possibility involves using the two arrow buttons \num{2} and \num{3}, to select a time window that has the same size of the currently visualized one, but is located immediately before or immediately after the current one.
+ \item Manual selection: by pressing the \emph{edit} button placed immediately beside the time bar on the right, the user access a dialog (Figure~\ref{fig:window_dialog}) where it is possible to explicitly put the exact values of the time interval start and end timestamps. 
+ This dialog enables also a manual definition of the size of the time window to be used when performing the time window navigation described above.
+\end{itemize}
+
+\begin{figure}[h!]
+  \centering
+    \includegraphics[width=0.35\textwidth]{images/window_dialog.png}
+  \caption{Time window dialog}
+  \label{fig:window_dialog}
+\end{figure}
+
+The view toolbar contains an \emph{adjust} button, which triggers column width resizing in order to fit the actual content.
+
+\paragraph{View communication} Using the Framesoc Bus (described in the RT-447~\cite{pagano:hal-00977887}), Framesoc views can communicate to each other. This mechanism is mostly used to synchronize the different views on time intervals, and to propagate to all the views changes in colors (see Subsection~\ref{subsec:colors}) or trace metadata (see Subsection~\ref{subsec:metadata}).
+Regarding time interval synchronization, in the toolbar of each Framesoc analysis view, there are some \emph{Show in...} buttons, allowing the user to pass from one view to another, still keeping the same trace and the same time interval. Figure~\ref{fig:show_in} show all the possible \emph{Show in...} buttons. 
+
+\begin{figure}[h!]
+  \centering
+    \includegraphics[width=0.2\textwidth]{images/show_in_icons.png}
+  \caption{\emph{Show in...} toolbar buttons}
+  \label{fig:show_in}
+\end{figure}
+
+Button \num{1} switches to the event table view (see Subsection~\ref{subsec:table}). Button \num{2} switches to the Gantt chart view (see Subsection~\ref{subsec:gantt}). Button \num{3} switches to the statistics pie chart view; in this case, the a dialog is shown to the user in order to select one of the possible statistics operators (see Subsection~\ref{subsec:pie}). Button \num{3} switches to the event density chart view (Subsection~\ref{subsec:histogram}).
+
+Of course, a view toolbar does not have a button redirecting to the view itself, so only three out of four possible \emph{Show in...} buttons are displayed in each view toolbar.
+
 %------------------------------------------------------------------
 \subsection{Statistics Pie Chart}
 \label{subsec:pie}
@@ -472,14 +542,14 @@ enabling the installation, modification and removal of external \emph{black-box}
 
 \begin{figure}[h!]
   \centering
-    \includegraphics[width=0.4\textwidth]{images/manage_tools.png}
+    \includegraphics[width=0.5\textwidth]{images/manage_tools.png}
   \caption{Tool manager}
   \label{fig:manage_tools}
 \end{figure}
 
 \begin{figure}[h!]
   \centering
-    \includegraphics[width=0.4\textwidth]{images/blackbox.png}
+    \includegraphics[width=0.5\textwidth]{images/blackbox.png}
   \caption{Black-box tool dialog}
   \label{fig:blackbox}
 \end{figure}
@@ -495,15 +565,13 @@ Plugin tools are installed and removed using the normal Eclipse procedure (\text
 \subsection{Color Management}
 \label{subsec:colors}
 
-%%% TODO
-
 The color management dialog (Figure~\ref{fig:color_type_list_MPI}) allows the user to modify the colors associated to event producers and event types in a centralized way for the whole workbench.
 The combo box at the top of the dialog (\num{1}) enables the selection of the entity (event producer or event type).
 The list below enumerates all instances for a given entity, preceded by a small square icon filled with the instance color.
 The editable text field on top of this list can be used as a filter on the list.
-When an entity instance is selected, pressing the \emph{edit} button gives access to the color edition dialog (Figure~\ref{fig:color_editing}).
+When an entity instance is selected, pressing the \emph{edit} button (\num{2}) gives access to the color edition dialog (Figure~\ref{fig:color_editing}).
 Pressing \emph{OK} saves all changes.
-Pressing the \emph{reset} button (under the \emph{edit} button), reverts unsaved changes.
+Pressing the \emph{reset} button (\num{3}), reverts unsaved changes.
 The color configuration for a given entity is physically stored in a configuration file located in the \texttt{configuration/fr.inria.soctrace.framesoc.ui} sub-folder of the eclipse install directory.
 For example, the relative path to eclipse install directory of the event type color configuration file is:
 \texttt{configuration/fr.inria.soctrace.framesoc.ui/event\_type\_colors}.
@@ -525,23 +593,22 @@ For example, the relative path to eclipse install directory of the event type co
   \label{fig:colors}       
  \end{figure}
 
-Note that when OK is pressed after changing some colors, the workbench modules are notified and the views may react by updating their colors in real-time (as done by the Pie Chart for example).
+Note that when \emph{OK} is pressed after changing some colors, the workbench modules are notified and the views may react by updating their colors in real-time.
 
 \subsection{Trace Import}
 \label{subsec:import}
 
-%%% TODO
-
 The trace import dialog (Figure~\ref{fig:import_dialog}) allows the user to import a new trace into the system using one of the registered importer tools.
 The user selects the importer from the combo box at the top, then he specifies the trace files (if more than one file is needed, all the files should be selected in the browser dialog opened when the \emph{Browse} button is pressed). 
 If the importer requires additional parameters (the \emph{Doc} field normally provides this information), the user specifies these parameters too.
+At the botton of the dialog, there is an \emph{Error Message} zone, intended to inform the user about any error in the input.
 
-Finally, after pressing \emph{OK}, the import process is launched.
+Finally, after pressing \emph{OK}, the import process is launched with the provided input.
 At the end of this process, the trace browser view is automatically updated with the new trace information.
 
 \begin{figure}[h!]
   \centering
-    \includegraphics[width=0.4\textwidth]{images/import_dialog.png}
+    \includegraphics[width=0.5\textwidth]{images/import_dialog.png}
   \caption{Import trace dialog}
   \label{fig:import_dialog}
 \end{figure}
@@ -549,16 +616,15 @@ At the end of this process, the trace browser view is automatically updated with
 \subsection{Launch Analysis Tool}
 \label{subsec:analysis}
 
-%%% TODO
-
 The launch analysis tool dialog (Figure~\ref{fig:analysis_dialog}) allows the user to launch one of the analysis tools registered to the system.
 The user selects the analysis tool from the combo box at the top. 
 If the tool requires additional parameters (the \emph{Doc} field normally provides this information), the user specifies these parameters too. 
-Finally, after pressing \emph{OK}, the tool is launched. 
+At the botton of the dialog, there is an \emph{Error Message} zone, intended to inform the user about any error in the input.
+Finally, after pressing \emph{OK}, the tool is launched with the provided input. 
 
 \begin{figure}[h!]
   \centering
-    \includegraphics[width=0.4\textwidth]{images/analysis_dialog.png}
+    \includegraphics[width=0.5\textwidth]{images/analysis_dialog.png}
   \caption{Launch analysis dialog}
   \label{fig:analysis_dialog}
 \end{figure}
@@ -566,13 +632,11 @@ Finally, after pressing \emph{OK}, the tool is launched.
 \subsection{Trace Export }
 \label{subsec:export}
 
-%%% TODO
-
 The  trace export dialog (Figure~\ref{fig:export_dialog}) works exactly as the launch analysis tool dialog, with the difference that this time the user can launch one of the exporter tools registered to the system.
 
 \begin{figure}[h!]
   \centering
-    \includegraphics[width=0.4\textwidth]{images/export_dialog.png}
+    \includegraphics[width=0.5\textwidth]{images/export_dialog.png}
   \caption{Export trace dialog}
   \label{fig:export_dialog}
 \end{figure}
