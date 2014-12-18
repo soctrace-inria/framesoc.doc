@@ -397,8 +397,6 @@ The event density is computed considering only the events in the selected time i
 \subsection{Event Table View}
 \label{subsec:table}
 
-%%% TODO
-
 \begin{figure}[h!]
   \centering
     \includegraphics[width=1.0\textwidth]{images/table.png}
@@ -413,18 +411,19 @@ This table has the following columns:
  \item Timestamp: the event timestamp.
  \item CPU: the number of the CPU on which the event has been produced.
  \item Event Producer: the name of the entity producing the event.
+ \item Category: the event category (State, Link, Punctual Event, Variable).
  \item Event Type: the event type name.
- \item Parameters: the list of the event custom parameters, with the format NAME='VALUE'.
+ \item Parameters: the list of the event custom parameters, with the format \texttt{NAME='VALUE'}.
 \end{itemize}
-Each column header, when clicked, triggers the sorting of the rows according to the corresponding column. 
 The first row of the table contains an editable filter for each column. 
 These filters accept regular expressions.
-For example, in Figure~\ref{fig:table} only the events produced by a given producer are filtered.
-The number of events matched by the filter, over the totality of loaded events, is shown in the status bar under the table viewer.
+The number of events matched by the filter, over the totality of loaded events, is shown in the status bar under the table viewer (\num{1}).
+Filtering takes place in a separate thread and can be stopped pressing \texttt{ESC}. 
+All filters can be cleaned contextually pressing \texttt{DEL}.
 
 At the bottom of the view, there is the time management bar described in Subsection~\ref{subsec:principles}.
 
-The view toolbar contains an \emph{adjust} button, which triggers column width resizing in order to fit the actual content.
+Beside the three \emph{Show in...} buttons (described in Subsection~\ref{subsec:principles}), the view toolbar contains a button (\num{2}) that resizes column width to fit the actual content.
 
 %------------------------------------------------------------------
 \subsection{Gantt Chart View}
