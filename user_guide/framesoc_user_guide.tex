@@ -364,8 +364,6 @@ Note that when a \emph{Statistics Pie Chart} view is opened for a given trace us
 \subsection{Event Density Chart}
 \label{subsec:histogram}
 
-%%% TODO
-
 \begin{figure}[h!]
   \centering
     \includegraphics[width=1.0\textwidth]{images/histogram.png}
@@ -374,16 +372,26 @@ Note that when a \emph{Statistics Pie Chart} view is opened for a given trace us
 \end{figure}
 
 The \emph{Event Density Chart} view (Figure~\ref{fig:histogram}) is a Framesoc analysis view displaying the event density over time in the form of a histogram.
+
+The histogram is on the left of the view (\num{1}).
 The $x$ axis represents the time, while the $y$ axis represents the number of events.
-The histogram number of bins is fixed and has been chosen in order to ensure a clear visualization, taking into account the number of pixels actually present on a screen. 
-The user can zoom and dezoom portions of the chart, using the mouse as shown in Figure~\ref{fig:histogram}.
+The histogram number of bins is fixed and has been chosen taking into account the number of pixels actually present on a screen, to ensure a clear visualization. 
+The user can zoom and dezoom portions of the chart. 
 In particular, to zoom a portion of the chart, the user has to click to the start of the portion, drag the mouse going to the right up to the end of the portion, then release the click.
 To completely dezoom, the user has to do the same as above, but dragging the mouse to the left this time.
 Hovering the mouse on a bin, some information about the bin is displayed (the central timestamp and the number of events).
 
-The view toolbar contains a \emph{table} button, which triggers the visualization of the displayed portion of trace in the table view.
+On the right, there is a tab browser (\num{2}), containing two tabs: \emph{Event Types} and \emph{Event Producers}. 
+The \emph{Event Types} tab allows the user to select which event types will be used to generate the histogram. 
+The \emph{Event Producers} tab does the same for event producers. 
+Both tabs present their content in a tree, reflecting the hierarchy of the displayed entities. 
+The tree elements can be filtered using the text box indicated as \num{6}. 
+Each element of the tree can be checked/unchecked directly, by using the checkbox beside it.
+To check/uncheck more elements contextually, the user can use the buttons indicated as \num{3} (check all), \num{4} (uncheck all), \num{5} (check subtree), \num{6} (uncheck subtree).
+These buttons are enabled/disabled according to the element currently selected in the tree.
 
-Note that, for the computation of the event density, all the events of the trace are considered.
+At the bottom of the view, there is the time management bar described in Subsection~\ref{subsec:principles}.
+The event density is computed considering only the events in the selected time interval, for the selected types and the selected producers.
 
 %------------------------------------------------------------------
 \subsection{Event Table View}
