@@ -325,36 +325,40 @@ Of course, a view toolbar does not have a button redirecting to the view itself,
 \subsection{Statistics Pie Chart}
 \label{subsec:pie}
 
-%%% TODO
-
 \begin{figure}[h!]
   \centering
-    \includegraphics[width=1.0\textwidth]{images/pie_chart.png}
+    \includegraphics[width=1.0\textwidth]{images/pie.png}
   \caption{Statistics Pie Chart view}
   \label{fig:pie_chart}
 \end{figure}
 
 The \emph{Statistics Pie Chart} view (Figure~\ref{fig:pie_chart}) is a Framesoc analysis view presenting several metrics in the form of a pie chart.
 The view is composed of two parts.
-On the top left, there are the metric selector and a \emph{play} button to load the metric. 
-At the bottom left, there is the actual pie chart.
-On the right, a table viewer displays the same information as the pie. 
-This table has three columns: the pie-slice name, the percentage value and the actual value. 
+On the left, there are the metric selector (\num{1}) and the actual pie chart (\num{2}).
+On the right, a table viewer (\num{4}) displays the same information as the pie. 
+The table has three columns: the pie-slice name, the percentage value and the actual value. 
 The name column cells contain a small square icon, filled with the color corresponding to the slice.
 Each column header, when clicked, triggers the sorting of the rows according to the values in the corresponding column.
-On the top of this table, there is an editable field, acting as a filter on table rows, working on the first column (\emph{Name}).
-The number of items matched by the filter, over the totality of items, is shown in the status bar under the table viewer.
+The content of this table viewer can be filtered by name using the text field on top of it (\num{3}). 
+The number of items matched by the filter, over the totality of items, is shown in the status bar under the table viewer (\num{5}).
+At the bottom of the view, there is the time management bar described in Subsection~\ref{subsec:principles}.
 
-For the time being, two metrics are available: the \emph{Event Producer} instances and the \emph{Event Type} instances. 
-Each slice represents the number of events having a given event producer or a given type respectively.
+For the time being, four metrics are available: 
+\begin{itemize}
+ \item Event Producer instances: each slice represents the number of events having a given event producer.
+ \item Event Type instances: each slice represents the number of events having a given event type.
+ \item Link duration: each slice represents the duration of a given type of links.
+ \item State duration: each slice represents the duration of a given type of state.
+\end{itemize}
+Note that each metric is computed considering only the selected time interval.
 
-From Figure~\ref{fig:pie_chart} it is possible to note that there can be a special slice in the pie: the \emph{Aggregated slice}.
+From Figure~\ref{fig:pie_chart} it is possible to note that there can be a special slice in the pie: the \emph{Aggregated} slice.
 This slice aggregates all the slices whose value is smaller than a given threshold, being therefore difficult or impossible to see.
 This threshold has been empirically set to $1\%$, taking into account user ergonomics and screen limitations.
-In the table on the right, the \emph{Aggregated slice} corresponds to a folder entry, whose sub-entries are the actual slices.
-All the detailed information is thus kept and available in the tabular representation.
+In the table on the right, the \emph{Aggregated} slice corresponds to a folder entry, whose sub-entries are the actual slices.
+All the detailed information is thus kept and made available in the tabular representation.
 
-Note that when a \emph{Statistics Pie Chart} view is opened for a given trace using the context menu in the trace browser, no pie chart is actually displayed, since the user has to select the metric of interest first, then press the \emph{play} button.
+Note that when a \emph{Statistics Pie Chart} view is opened for a given trace using the context menu in the trace browser, no pie chart is actually displayed, since the user has to select the metric of interest first, then press the load button (\num{6}) in the time management bar.
 
 %------------------------------------------------------------------
 \subsection{Event Density Chart}
@@ -364,15 +368,15 @@ Note that when a \emph{Statistics Pie Chart} view is opened for a given trace us
 
 \begin{figure}[h!]
   \centering
-    \includegraphics[width=1.0\textwidth]{images/histogram_zoom.png}
+    \includegraphics[width=1.0\textwidth]{images/histogram.png}
   \caption{Event Density Chart view}
-  \label{fig:histogram_zoom}
+  \label{fig:histogram}
 \end{figure}
 
-The \emph{Event Density Chart} view (Figure~\ref{fig:histogram_zoom}) is a Framesoc analysis view displaying the event density over time in the form of a histogram.
+The \emph{Event Density Chart} view (Figure~\ref{fig:histogram}) is a Framesoc analysis view displaying the event density over time in the form of a histogram.
 The $x$ axis represents the time, while the $y$ axis represents the number of events.
 The histogram number of bins is fixed and has been chosen in order to ensure a clear visualization, taking into account the number of pixels actually present on a screen. 
-The user can zoom and dezoom portions of the chart, using the mouse as shown in Figure~\ref{fig:histogram_zoom}.
+The user can zoom and dezoom portions of the chart, using the mouse as shown in Figure~\ref{fig:histogram}.
 In particular, to zoom a portion of the chart, the user has to click to the start of the portion, drag the mouse going to the right up to the end of the portion, then release the click.
 To completely dezoom, the user has to do the same as above, but dragging the mouse to the left this time.
 Hovering the mouse on a bin, some information about the bin is displayed (the central timestamp and the number of events).
@@ -389,12 +393,12 @@ Note that, for the computation of the event density, all the events of the trace
 
 \begin{figure}[h!]
   \centering
-    \includegraphics[width=1.0\textwidth]{images/table_nocategory.png}
+    \includegraphics[width=1.0\textwidth]{images/table.png}
   \caption{Events view}
-  \label{fig:table_regex}
+  \label{fig:table}
 \end{figure}
 
-The \emph{Events} view (Figure~\ref{fig:table_regex}) is a Framesoc analysis view showing a tabular representation of trace events.
+The \emph{Events} view (Figure~\ref{fig:table}) is a Framesoc analysis view showing a tabular representation of trace events.
 The main element of this view is a table viewer, displaying a distinct row for each event of the trace.
 This table has the following columns:
 \begin{itemize}
@@ -407,7 +411,7 @@ This table has the following columns:
 Each column header, when clicked, triggers the sorting of the rows according to the corresponding column. 
 The first row of the table contains an editable filter for each column. 
 These filters accept regular expressions.
-For example, in Figure~\ref{fig:table_regex} only the events produced by a given producer are filtered.
+For example, in Figure~\ref{fig:table} only the events produced by a given producer are filtered.
 The number of events matched by the filter, over the totality of loaded events, is shown in the status bar under the table viewer.
 
 At the bottom of the view, there is the time management bar described in Subsection~\ref{subsec:principles}.

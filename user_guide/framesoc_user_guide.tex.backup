@@ -253,7 +253,6 @@ Note that if more than one trace is selected in the \emph{Traces} view, it is st
 \label{sec:analysis}
 %=====================================================================
 
-
 %------------------------------------------------------------------
 \subsection{General principles}
 \label{subsec:principles}
@@ -262,7 +261,7 @@ Before describing in detail the different Framesoc analysis views, we present he
 
 \paragraph{Data management} 
 
-All Framesoc analysis views try to maximize the interactivity and responsiveness of the system by pipelining data loading and visualization. This allows the user to start working with data (or at least visualize it), while the loading job is ongoing. For example, the Gantt chart allows for zooming/dezooming the visualized part of the trace, while trace events are being loaded. 
+All Framesoc analysis views try to maximize the interactivity and responsiveness of the system by pipelining data loading and visualization. This allows the user to start working with data (or at least visualize it), while the loading job is ongoing. For example, the Gantt chart allows for zooming/dezooming or panning the visualized part of the trace, while trace events are being loaded. 
 
 The user has full control on the loading job, and can stop it when she wants. In this case, the data loaded so far are still available for analysis. To cancel a loading job the user uses the \emph{Progress} view (see for example Figure~\ref{fig:progress} for the \emph{Progress} view showing the Gantt loading process.)
 
@@ -275,7 +274,7 @@ The user has full control on the loading job, and can stop it when she wants. In
 
 The button indicated as \num{1} requests for stopping the job. The \emph{Progress} view is not shown by default in the Framesoc perspective. To access this view, the user has to click on the button indicated as \num{2}, which is always visible in Eclipse when a job is in progress.
 
-\paragraph{Time management} Each Framesoc view is capable to load and display trace data related to whatever trace time interval: it is not compulsory to load in memory the entire trace; it is possible, on the contrary, to load only a specific sub-interval. For example, the user has the flexibility to load only a specific time window of interest in the Gantt chart, avoiding charging into memory portions of the trace that are not interesting for the analysis.
+\paragraph{Time management} Each Framesoc view is capable to load and display trace data related to whatever trace time interval: it is not compulsory to load in memory the entire trace to show only a given portion of it; it is possible, on the contrary, to load only a specific sub-interval. For example, the user has the flexibility to load only a specific time window of interest in the Gantt chart, avoiding charging into memory portions of the trace that are not interesting for the analysis.
 
 The user controls the portion of the trace actually loaded into memory and displayed in the analysis view using a time management bar, located at the bottom of each Framesoc analysis view (Figure~\ref{fig:timebar}).
 
@@ -290,14 +289,15 @@ This bar contains a double range time slider (\num{1}) representing the whole tr
 The two knobs of the double range slider (\num{8} and \num{9}) identify the portion of the trace (colored in black) actually loaded in the table.
 Using this kind of representation, the user always keeps a global visibility on the whole trace, while loading only the information he is interested in.
 In order to change the time window loaded in the view, the user has to change the width of the black bar using the knobs \num{8} and \num{9}.
-However, in order to avoid spurious and useless data transfers (from disk to memory), the change is executed only when the user presses the button indicated as \num{7}.
+However, in order to avoid spurious and useless data transfers (from disk to memory), the new time interval is actually loaded only when the user presses the button indicated as \num{7}.
 The button indicated as \num{6} resynchronizes the time bar with the time window actually loaded in the table, if they differ (i.e., the user modified the interval in the timebar without triggering a load with button \num{7}).
 In order to modify the time window visualized in the double range slider the user has several possibilities. 
 \begin{itemize}
- \item Graphical selection: it is the most intuitive way and it involves using the two knobs \num{8} and \num{9}, in order to graphically set the two bounds of the time interval.
- \item Time window navigation: this possibility involves using the two arrow buttons \num{2} and \num{3}, to select a time window that has the same size of the currently visualized one, but is located immediately before or immediately after the current one.
- \item Manual selection: by pressing the \emph{edit} button placed immediately beside the time bar on the right, the user access a dialog (Figure~\ref{fig:window_dialog}) where it is possible to explicitly put the exact values of the time interval start and end timestamps. 
- This dialog enables also a manual definition of the size of the time window to be used when performing the time window navigation described above.
+ \item \emph{Graphical selection}: it is the most intuitive way and it involves using the two knobs \num{8} and \num{9}, in order to graphically set the two bounds of the time interval.
+ \item \emph{Time window navigation}: this possibility involves using the two arrow buttons \num{2} and \num{3}, to select a time window that has the same size of the currently visualized one, but is located immediately before or immediately after the current one.
+ \item \emph{Manual selection}: by pressing the button indicated as \num{5}, the user accesses a dialog (Figure~\ref{fig:window_dialog}) where it is possible to explicitly put the exact values of the time interval start and end timestamps. 
+ This dialog enables also a manual definition of the size of the time window to be used when performing the \emph{time window navigation} described above.
+ \item \emph{Select all}: using the button indicated as \num{4}, the user easily selects all the trace duration.
 \end{itemize}
 
 \begin{figure}[h!]
@@ -307,10 +307,8 @@ In order to modify the time window visualized in the double range slider the use
   \label{fig:window_dialog}
 \end{figure}
 
-The view toolbar contains an \emph{adjust} button, which triggers column width resizing in order to fit the actual content.
-
 \paragraph{View communication} Using the Framesoc Bus (described in the RT-447~\cite{pagano:hal-00977887}), Framesoc views can communicate to each other. This mechanism is mostly used to synchronize the different views on time intervals, and to propagate to all the views changes in colors (see Subsection~\ref{subsec:colors}) or trace metadata (see Subsection~\ref{subsec:metadata}).
-Regarding time interval synchronization, in the toolbar of each Framesoc analysis view, there are some \emph{Show in...} buttons, allowing the user to pass from one view to another, still keeping the same trace and the same time interval. Figure~\ref{fig:show_in} show all the possible \emph{Show in...} buttons. 
+Regarding time interval synchronization, in the toolbar of each Framesoc analysis view, there are some \emph{Show in...} buttons, allowing the user to pass from one view to another, still keeping the same trace and the same time interval. Figure~\ref{fig:show_in} shows all the possible \emph{Show in...} buttons. 
 
 \begin{figure}[h!]
   \centering
@@ -331,20 +329,19 @@ Of course, a view toolbar does not have a button redirecting to the view itself,
 
 \begin{figure}[h!]
   \centering
-    \includegraphics[width=1.0\textwidth]{images/pie_chart.png}
+    \includegraphics[width=1.0\textwidth]{images/pie.png}
   \caption{Statistics Pie Chart view}
   \label{fig:pie_chart}
 \end{figure}
 
 The \emph{Statistics Pie Chart} view (Figure~\ref{fig:pie_chart}) is a Framesoc analysis view presenting several metrics in the form of a pie chart.
 The view is composed of two parts.
-On the top left, there are the metric selector and a \emph{play} button to load the metric. 
-At the bottom left, there is the actual pie chart.
-On the right, a table viewer displays the same information as the pie. 
+On the left, there are the metric selector (\num{1}) and the actual pie chart (\num{2}).
+On the right, a table viewer (\num{4}) displays the same information as the pie. 
 This table has three columns: the pie-slice name, the percentage value and the actual value. 
 The name column cells contain a small square icon, filled with the color corresponding to the slice.
 Each column header, when clicked, triggers the sorting of the rows according to the values in the corresponding column.
-On the top of this table, there is an editable field, acting as a filter on table rows, working on the first column (\emph{Name}).
+The content of this table viewer can be filtered by name using the text field on top of it (\num{3}). 
 The number of items matched by the filter, over the totality of items, is shown in the status bar under the table viewer.
 
 For the time being, two metrics are available: the \emph{Event Producer} instances and the \emph{Event Type} instances. 
@@ -366,15 +363,15 @@ Note that when a \emph{Statistics Pie Chart} view is opened for a given trace us
 
 \begin{figure}[h!]
   \centering
-    \includegraphics[width=1.0\textwidth]{images/histogram_zoom.png}
+    \includegraphics[width=1.0\textwidth]{images/histogram.png}
   \caption{Event Density Chart view}
-  \label{fig:histogram_zoom}
+  \label{fig:histogram}
 \end{figure}
 
-The \emph{Event Density Chart} view (Figure~\ref{fig:histogram_zoom}) is a Framesoc analysis view displaying the event density over time in the form of a histogram.
+The \emph{Event Density Chart} view (Figure~\ref{fig:histogram}) is a Framesoc analysis view displaying the event density over time in the form of a histogram.
 The $x$ axis represents the time, while the $y$ axis represents the number of events.
 The histogram number of bins is fixed and has been chosen in order to ensure a clear visualization, taking into account the number of pixels actually present on a screen. 
-The user can zoom and dezoom portions of the chart, using the mouse as shown in Figure~\ref{fig:histogram_zoom}.
+The user can zoom and dezoom portions of the chart, using the mouse as shown in Figure~\ref{fig:histogram}.
 In particular, to zoom a portion of the chart, the user has to click to the start of the portion, drag the mouse going to the right up to the end of the portion, then release the click.
 To completely dezoom, the user has to do the same as above, but dragging the mouse to the left this time.
 Hovering the mouse on a bin, some information about the bin is displayed (the central timestamp and the number of events).
@@ -391,12 +388,12 @@ Note that, for the computation of the event density, all the events of the trace
 
 \begin{figure}[h!]
   \centering
-    \includegraphics[width=1.0\textwidth]{images/table_nocategory.png}
+    \includegraphics[width=1.0\textwidth]{images/table.png}
   \caption{Events view}
-  \label{fig:table_regex}
+  \label{fig:table}
 \end{figure}
 
-The \emph{Events} view (Figure~\ref{fig:table_regex}) is a Framesoc analysis view showing a tabular representation of trace events.
+The \emph{Events} view (Figure~\ref{fig:table}) is a Framesoc analysis view showing a tabular representation of trace events.
 The main element of this view is a table viewer, displaying a distinct row for each event of the trace.
 This table has the following columns:
 \begin{itemize}
@@ -409,30 +406,10 @@ This table has the following columns:
 Each column header, when clicked, triggers the sorting of the rows according to the corresponding column. 
 The first row of the table contains an editable filter for each column. 
 These filters accept regular expressions.
-For example, in Figure~\ref{fig:table_regex} only the events produced by a given producer are filtered.
+For example, in Figure~\ref{fig:table} only the events produced by a given producer are filtered.
 The number of events matched by the filter, over the totality of loaded events, is shown in the status bar under the table viewer.
 
-At the bottom of the view, there is a time management bar.
-This bar contains a double range time slider (representing the whole trace duration) surrounded by two arrow buttons, and three more buttons on the right (\emph{edit}, \emph{reset} and \emph{play} buttons).
-The two knobs of the double range slider identify the portion of the trace (colored in black) actually loaded in the table.
-This way, the user always keeps a global visibility on the whole trace, while loading only the information he is interested in.
-In order to change the time window loaded in the table, one needs to change the width of the black bar. 
-However, in order to avoid spurious and useless data transfers (from disk to memory), the change is executed only when the user activates the \emph{play} button on the right of the bar.
-The \emph{reset} button resynchronizes the time bar with the time window actually loaded in the table, if they differ.
-In order to modify the time window visualized in the double range slider the user has several possibilities. 
-\begin{itemize}
- \item Graphical selection: it is the most intuitive way and it involves using the two knobs, in order to graphically set the two bounds of the time interval.
- \item Time window navigation: this possibility involves using the two arrow buttons placed respectively on the left and on the right of the time bar, in order to select a time window that has the same size of the currently visualized one, but is located immediately before or immediately after the current one.
- \item Manual selection: by pressing the \emph{edit} button placed immediately beside the time bar on the right, the user access a dialog (Figure~\ref{fig:window_dialog}) where it is possible to explicitly put the exact values of the time interval start and end timestamps. 
- This dialog enables also a manual definition of the size of the time window to be used when performing the time window navigation described above.
-\end{itemize}
-
-\begin{figure}[h!]
-  \centering
-    \includegraphics[width=0.35\textwidth]{images/window_dialog.png}
-  \caption{Time window dialog}
-  \label{fig:window_dialog}
-\end{figure}
+At the bottom of the view, there is the time management bar described in Subsection~\ref{subsec:principles}.
 
 The view toolbar contains an \emph{adjust} button, which triggers column width resizing in order to fit the actual content.
 
@@ -441,6 +418,47 @@ The view toolbar contains an \emph{adjust} button, which triggers column width r
 \label{subsec:gantt}
 
 %%% TODO
+
+\begin{figure}[h!]
+  \centering
+    \includegraphics[width=1.0\textwidth]{images/gantt.png}
+  \caption{Gantt Chart view}
+  \label{fig:gantt}
+\end{figure}
+
+This view (Figure~\ref{fig:gantt} shows a Gantt chart representation of trace events.
+This kind of representation is pretty common in trace analysis frameworks (e.g., Lttng Eclipse Viewer~\cite{lttng_viewer}) and is classically used to visualize application behavior over time, thanks to its ability to represent causality relations~\cite{wilson_gantt_2003}.
+%%% TODO
+The main element of this view is a Gantt viewer\footnote{TODO cite trace compass}, which is composed of two parts.
+On the left there is the hierarchy of event producers, grouped by CPU. 
+On the right there is the actual time chart, showing for each producer all the punctual events it generates (represented as simple vertical lines) and all the states it spends time in (represented as colored rectangles). 
+If there are links in the trace (e.g., communications), they are represented as oriented arrows.
+Note that the colors used to fill the rectangles depend on the event type.
+For a given event type, the same color is used in this Gantt view and in the Pie Chart view (Subsection~\ref{subsec:pie}).
+Note that hovering the mouse on a given state, triggers the displaying of a tooltip showing the event type name (Figure~\ref{fig:gantt_tooltip}).
+
+The view toolbar contains the following buttons:
+ \begin{itemize}
+  \item Six buttons enable six different modes, where a mode defines the behavior of a mouse click on the time chart:
+  \begin{itemize}
+   \item Select mode: it is possible to select with the mouse a time region in the time chart.
+   \item Drag mode: it is possible to drag the time chart with the mouse.
+   \item Horizontal Zoom In
+   \item Horizontal Zoom Out
+   \item Vertical Zoom In
+   \item Vertical Zoom Out
+  \end{itemize}
+  \item The \emph{adjust} button triggers the resize of content to fit the view size.
+  \item The \emph{clock} button enables/disables the time compression feature: if enabled, this feature hides large time regions without events.
+  \item The \emph{show all} button triggers the loading of the whole trace in the Gantt.
+  \item The \emph{table} button triggers the visualization of the current loaded time window in the Event Table view.
+ \end{itemize}
+
+Under the Gantt viewer, there is a status bar displaying the trace time unit, the timestamp currently under the mouse cursor and the selected interval duration, if any.
+
+Under the status bar, at the bottom of the view, there is a time management bar, which has exactly the same behavior as the one in the Event Table view (see Subsection~\ref{subsec:table} for the details).
+As it happens for the table, a new time window is loaded in the Gantt viewer only on demand, when the \emph{play} button is pressed.
+Note that this time, given that it is possible to select a time region also on the Gantt viewer (if in selection mode), the selections in the viewer and in the double range slider are always synchronized, thus helping trace navigation.
 
 %------------------------------------------------------------------
 \section{Framesoc Menu and Toolbar}
@@ -534,8 +552,6 @@ A control for mismatch between runtime tools and System DB tools is equally done
 
 \subsection{Tool Management}
 \label{subsec:tools}
-
-%%% TODO
 
 The tool management dialog (Figure~\ref{fig:manage_tools}) simply displays the list of tools registered to the system, 
 enabling the installation, modification and removal of external \emph{black-box} tools (tools that are not eclipse plugins).
