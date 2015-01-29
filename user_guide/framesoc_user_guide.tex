@@ -86,7 +86,7 @@ Generoso Pagano \thanks{INRIA, generoso.pagano@inria.fr}
 
 Framesoc, the SoC-Trace project~\cite{SoC-TRACE} trace management infrastructure, is composed by three main layers, as shown in Figure~\ref{fig:architecture}.
 
-%% TODO 
+%% TODO update figure
 \begin{figure}[h]
   \centering
     \includegraphics[width=0.7\textwidth]{images/framesoc_architecture.pdf}
@@ -115,7 +115,7 @@ Framesoc is an application built on top of the Eclipse framework. Therefore, the
 \label{sec:perspective}
 %=====================================================================
 
-%% TODO 
+%% TODO update figure
 \begin{figure}[h!]
   \centering
     \includegraphics[width=1.0\textwidth]{images/perspective_numbers.png}
@@ -138,7 +138,7 @@ The name of the trace currently shown inside an analysis view is displayed as th
 For each trace, there can be an instance of each type of analysis view. 
 The maximum number of open instances for a given type of analysis view is configurable (Appendix~\ref{app:conf}).
 When a trace is selected in the trace browser, the corresponding metadata are shown in the metadata viewer and all the analysis views referring to that trace (if any) are highlighted. 
-Namely, the view name, which corresponds to the trace name, is preceded by an arrow (\emph{>}). 
+Namely, the view name, which corresponds to the trace alias, is preceded by an arrow (\emph{>}). 
 In the example shown in Figure~\ref{fig:all_perspective}, all analysis views refer to the selected trace \texttt{nancy\_64\_cg.C.64}.
 On the other hand, when an analysis view is given focus, the trace shown in that view becomes the selected trace in the trace browser, so the metadata viewer is updated accordingly and all the analysis views are consistently highlighted or unhighlighted. 
 
@@ -312,8 +312,8 @@ In order to modify the time window visualized in the double range slider the use
   \label{fig:window_dialog}
 \end{figure}
 
-%% TODO links here
-Regarding timestamps representation in Framesoc, if no time unit is indicated beside a displayed timestamp, by default the time unit used is the one shown in the Trace Details view for that trace (Time-Unit metadata). This apply to the bar described above, as well as to any other Framesoc view.
+Regarding timestamps representation in Framesoc, if no time unit is indicated beside a displayed timestamp, by default the time unit used is the one shown in the Trace Details~\ref{subsec:metadata} view for that trace (\texttt{Time-Unit} metadata). 
+This applies to the time management bar described above, as well as to any other Framesoc GUI place.
 
 \paragraph{View communication} Using the Framesoc Bus (described in the RT-447~\cite{pagano:hal-00977887}), Framesoc views can communicate to each other. This mechanism is mostly used to synchronize the different views on time intervals, and to propagate to all the views changes in colors (see Subsection~\ref{subsec:colors}) or trace metadata (see Subsection~\ref{subsec:metadata}).
 Regarding time interval synchronization, in the toolbar of each Framesoc analysis view, there are some \emph{Show in...} buttons, allowing the user to pass from one view to another, still keeping the same trace and the same time interval. Figure~\ref{fig:show_in} shows all the possible \emph{Show in...} buttons. 
@@ -333,6 +333,7 @@ Of course, a view toolbar does not have a button redirecting to the view itself,
 \subsection{Statistics Pie Chart}
 \label{subsec:pie}
 
+%% TODO update figure
 \begin{figure}[h!]
   \centering
     \includegraphics[width=1.0\textwidth]{images/pie.png}
@@ -366,12 +367,33 @@ This threshold has been empirically set to $1\%$, taking into account user ergon
 In the table on the right, the \emph{Aggregated} slice corresponds to a folder entry, whose sub-entries are the actual slices.
 All the detailed information is thus kept and made available in the tabular representation.
 
+Right clicking on one or more of the table elements, a context menu is shown.
+The commands available in this menu vary according to the elements selected.
+If the \emph{Aggregated} slice row is selected, no menu is shown.
+In any other case, the menu can contain one or more of the following commands:
+\begin{itemize}
+ \item \emph{Exclude Item from statistics / Exclude items from statistics}: shown if only leaf items are selected. This command excludes the selected leaf items from statistics computation. 
+ \item \emph{Merge Items}: shown only if two or more leaf items are selected. This command merges the items in a new folder item. The name and the color of the new folder item are chosen by the user with the dialog shown in Figure~\ref{fig:merge_dialog}.
+    %% TODO better image please
+    \begin{figure}[h!]
+      \centering
+	\includegraphics[width=.3\textwidth]{images/dialog_merge.png}
+      \caption{Merge Items Dialog}
+      \label{fig:merge_dialog}
+    \end{figure} 
+ \item \emph{Unmerge Items}: shown if one or more folder items are selected. This command unmerges the items contained in the folder item.
+ \item \emph{Unmerge All Items}: shown if at least one folder item, created by merging two or more leaf items, exists. This command unmerges all the merged items. 
+ \item \emph{Restore Excluded Items}: shown if at least on leaf item has been excluded from statistics computation. This command restores all previously excluded items into statistics computation.
+\end{itemize}
+
+
 Note that when a \emph{Statistics Pie Chart} view is opened for a given trace using the context menu in the trace browser, no pie chart is actually displayed, since the user has to select the metric of interest first, then press the load button (\num{6}) in the time management bar.
 
 %------------------------------------------------------------------
 \subsection{Event Density Chart}
 \label{subsec:histogram}
 
+%% TODO update figure
 \begin{figure}[h!]
   \centering
     \includegraphics[width=1.0\textwidth]{images/histogram.png}
@@ -393,6 +415,7 @@ On the right, there is a tab browser (\num{2}), containing two tabs: \emph{Event
 The \emph{Event Types} tab allows the user to select which event types will be used to generate the histogram. 
 The \emph{Event Producers} tab does the same for event producers. 
 Both tabs present their content in a tree, reflecting the hierarchy of the displayed entities. 
+Each entity in the tree is preceded by a square icon, filled with the entity color.
 The tree elements can be filtered using the text box indicated as \num{6}. 
 Each element of the tree can be checked/unchecked directly, by using the checkbox beside it.
 To check/uncheck more elements contextually, the user can use the buttons indicated as \num{3} (check all), \num{4} (uncheck all), \num{5} (check subtree), \num{6} (uncheck subtree).
@@ -405,6 +428,7 @@ The event density is computed considering only the events in the selected time i
 \subsection{Event Table View}
 \label{subsec:table}
 
+% TODO update figure
 \begin{figure}[h!]
   \centering
     \includegraphics[width=1.0\textwidth]{images/table.png}
@@ -437,6 +461,7 @@ Beside the three \emph{Show in...} buttons indicated as \num{3} (see Subsection~
 \subsection{Gantt Chart View}
 \label{subsec:gantt}
 
+%% TODO update figure
 \begin{figure}[h!]
   \centering
     \includegraphics[width=1.0\textwidth]{images/gantt.png}
@@ -481,7 +506,8 @@ While selecting a given region, the same selection is applied to the time manage
 Similarly, changing the selection in the time management bar, changes the selection in the Gantt chart.
 When a time region is selected, clicking on a given point of the Gantt chart removes the selection and restore the time management bar selection as it was before.
 
-Beside the three \emph{Show in...} buttons indicated as \num{11} (see Subsection~\ref{subsec:principles}), the view toolbar contains the following buttons:
+%% TODO verify numbers
+Beside the three \emph{Show in...} buttons indicated as \num{13} (see Subsection~\ref{subsec:principles}), the view toolbar contains the following buttons:
  \begin{itemize}
   \item Button \num{1}: display a dialog where it is possible to select the event producers to display.
   \item Button \num{2}: display a dialog showing the color legend. 
@@ -492,7 +518,9 @@ Beside the three \emph{Show in...} buttons indicated as \num{11} (see Subsection
   \item Button \num{7}: select the next event producer line.
   \item Button \num{8}: zoom.
   \item Button \num{9}: dezoom.
-  \item Button \num{10}: hide/display links.
+  \item Button \num{10}: display a dialog where it is possible to select the types to display.
+  \item Button \num{11}: hide/display links.
+  \item Button \num{12}: use the CPU drawer; the trace is reloaded using a different event producer hierarchy where CPUs are the roots.
  \end{itemize}
 
 %------------------------------------------------------------------
@@ -649,14 +677,17 @@ Note that when \emph{OK} is pressed after changing some colors, the workbench mo
 \subsection{Trace Import}
 \label{subsec:import}
 
-The trace import dialog (Figure~\ref{fig:import_dialog}) allows the user to import a new trace into the system using one of the registered importer tools.
-The user selects the importer from the combo box at the top, then he specifies the trace files (if more than one file is needed, all the files should be selected in the browser dialog opened when the \emph{Browse} button is pressed). 
-If the importer requires additional parameters (the \emph{Doc} field normally provides this information), the user specifies these parameters too.
-At the bottom of the dialog, there is an \emph{Error Message} zone, intended to inform the user about any error in the input.
-
-Finally, after pressing \emph{OK}, the import process is launched with the provided input.
+The trace import dialog (Figure~\ref{fig:import_dialog}) allows the user to import new traces into the system, by using one of the registered importer tools.
+The combo box on top of the dialog enables the selection of the importer.
+The controls displayed below the combo box change according to the selected importer.
+These controls allow the user to configure the importer and pass the needed input.
+For example, in Figure~\ref{fig:import_dialog} we can see that the \emph{Pajè Dump Importer} has a checkbox to enable double precision and a text field for passing trace files.
+Any tool specific message, triggered by a change in the input for example, is displayed in the text field at the bottom of the dialog (\emph{Tool Message} group).
+The \emph{OK} button becomes active only if the input specified is considered valid by the tool. 
+Pressing \emph{OK} the import process is launched with the provided input.
 At the end of this process, the trace browser view is automatically updated with the new trace information.
 
+%% TODO better image please
 \begin{figure}[h!]
   \centering
     \includegraphics[width=0.5\textwidth]{images/import_dialog.png}
@@ -668,11 +699,10 @@ At the end of this process, the trace browser view is automatically updated with
 \label{subsec:analysis}
 
 The launch analysis tool dialog (Figure~\ref{fig:analysis_dialog}) allows the user to launch one of the analysis tools registered to the system.
-The user selects the analysis tool from the combo box at the top. 
-If the tool requires additional parameters (the \emph{Doc} field normally provides this information), the user specifies these parameters too. 
-At the bottom of the dialog, there is an \emph{Error Message} zone, intended to inform the user about any error in the input.
-Finally, after pressing \emph{OK}, the tool is launched with the provided input. 
+This dialog has the same structure of the Import Trace dialog (see Subsection~\ref{subsec:import}). 
+Pressing \emph{OK}, the selected analysis tool is launched with the provided input. 
 
+%% TODO Update figure
 \begin{figure}[h!]
   \centering
     \includegraphics[width=0.5\textwidth]{images/analysis_dialog.png}
@@ -683,8 +713,11 @@ Finally, after pressing \emph{OK}, the tool is launched with the provided input.
 \subsection{Trace Export }
 \label{subsec:export}
 
-The  trace export dialog (Figure~\ref{fig:export_dialog}) works exactly as the launch analysis tool dialog, with the difference that this time the user can launch one of the exporter tools registered to the system.
+The launch export tool dialog (Figure~\ref{fig:analysis_dialog}) allows the user to launch one of the export tools registered to the system.
+This dialog has the same structure of the Import Trace dialog (see Subsection~\ref{subsec:import}). 
+Pressing \emph{OK}, the selected export tool is launched with the provided input. 
 
+%% TODO update image
 \begin{figure}[h!]
   \centering
     \includegraphics[width=0.5\textwidth]{images/export_dialog.png}
@@ -701,10 +734,11 @@ The  trace export dialog (Figure~\ref{fig:export_dialog}) works exactly as the l
 \label{app:conf}
 %%=====================================================================
 
-The Framesoc configuration file (\texttt{.soctrace.conf}) is located in the user home directory.
-It is automatically generated and mostly configurable using the GUI.
+The Framesoc configuration file is located within the Eclipse installation directory.
+Its relative path to this directory is:  \texttt{./configuration/fr.inria.soctrace.lib.utils/soctrace.conf}.
 
-The file contains the following parameters:
+This file is automatically generated and mostly configurable using the GUI. 
+It contains the following parameters:
 \begin{description}
  \item[soctrace\_dbms]: DBMS used by Framesoc. The accepted values are: sqlite, mysql.
  \item[mysql\_db\_user]: MySQL database user name.
