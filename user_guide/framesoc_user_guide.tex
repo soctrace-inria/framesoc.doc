@@ -18,7 +18,7 @@
 \usepackage{listings}
 %%
 %% date
-\RRdate{December 2014}
+\RRdate{January 2015}
 %%
 %% If version 2
 %% \RRversion{2}
@@ -86,6 +86,7 @@ Generoso Pagano \thanks{INRIA, generoso.pagano@inria.fr}
 
 Framesoc, the SoC-Trace project~\cite{SoC-TRACE} trace management infrastructure, is composed by three main layers, as shown in Figure~\ref{fig:architecture}.
 
+%% TODO 
 \begin{figure}[h]
   \centering
     \includegraphics[width=0.7\textwidth]{images/framesoc_architecture.pdf}
@@ -114,6 +115,7 @@ Framesoc is an application built on top of the Eclipse framework. Therefore, the
 \label{sec:perspective}
 %=====================================================================
 
+%% TODO 
 \begin{figure}[h!]
   \centering
     \includegraphics[width=1.0\textwidth]{images/perspective_numbers.png}
@@ -132,10 +134,12 @@ The Framesoc perspective (Figure~\ref{fig:all_perspective}) contains the followi
 The management views (trace browser and metadata viewer/editor) refer to the whole system and are typically the entry point for trace analysis.
 For this reason, they cannot be closed and there can be only a single instance of each of them.
 On the contrary, all the analysis views refer to a single trace, so they can be opened and closed as needed. 
+The name of the trace currently shown inside an analysis view is displayed as the view name, beside the view icon.
 For each trace, there can be an instance of each type of analysis view. 
 The maximum number of open instances for a given type of analysis view is configurable (Appendix~\ref{app:conf}).
-When a trace is selected in the trace browser, the corresponding metadata are shown in the metadata viewer and all the analysis views referring to that trace (if any) are highlighted. Namely, the view name is surrounded by \emph{<} and \emph{>}. 
-In the example shown in Figure~\ref{fig:all_perspective}, all analysis views refer to the selected trace \texttt{nancy\_64\_cg.C.64}).
+When a trace is selected in the trace browser, the corresponding metadata are shown in the metadata viewer and all the analysis views referring to that trace (if any) are highlighted. 
+Namely, the view name, which corresponds to the trace name, is preceded by an arrow (\emph{>}). 
+In the example shown in Figure~\ref{fig:all_perspective}, all analysis views refer to the selected trace \texttt{nancy\_64\_cg.C.64}.
 On the other hand, when an analysis view is given focus, the trace shown in that view becomes the selected trace in the trace browser, so the metadata viewer is updated accordingly and all the analysis views are consistently highlighted or unhighlighted. 
 
 The following sections describe in detail Framesoc management and analysis views, as well as the functionalities accessible via Framesoc menu and toolbar.
@@ -163,7 +167,7 @@ Then, in each of these two categories, traces are grouped by type.
 The type may relate to the trace format or to the tool that created the trace. 
 The viewer presents a trace alias for each trace.
 
-Double-clicking on a trace opens the Event Density Chart for that trace (Subsection~\ref{subsec:histogram}).
+Double-clicking on a trace opens the Gantt Chart for that trace (Subsection~\ref{subsec:gantt}).
 Right-clicking on a single trace opens a context menu that gives access to the following functionalities:
 \begin{itemize}
  \item \emph{Show Event Density Chart}: open the density chart view for this trace (see Subsection~\ref{subsec:histogram}).
@@ -185,6 +189,7 @@ The view toolbar contains the following buttons: a couple of buttons to expand (
 
 Pressing the button indicated as \num{3} in Figure~\ref{fig:popup_explorer}, the \emph{Trace Filter Dialog} is opened (Figure~\ref{fig:trace_filter_dialog}).
 
+%% TODO modify image: filter results
 \begin{figure}[h!]
   \centering
     \includegraphics[width=0.9\textwidth]{images/trace_table_filter.png}
@@ -192,7 +197,7 @@ Pressing the button indicated as \num{3} in Figure~\ref{fig:popup_explorer}, the
   \label{fig:trace_filter_dialog}
 \end{figure}
 
-This dialog displays a table containing all the traces imported in the system. Each column of this table corresponds to a particular trace metadata. Clicking on the header of each column, it is possible to sort the table rows according to the column content. The first row of the table has editable fields, allowing for filtering on the corresponding column content. Filtering can be done using regular expression. In the example shown in Figure~\ref{fig:trace_filter_dialog}, we filtered all the traces produced on ``Linux'', containing the string ``pj\_dump'' in the description.
+This dialog displays a table containing all the traces imported in the system. Each column of this table corresponds to a particular trace metadata. Clicking on the header of each column, it is possible to sort the table rows according to the column content. The first row of the table has editable fields, allowing for filtering on the corresponding column content. Filtering can be done using regular expression. At the bottom of the table, the number of traces matched by the filter, over the totality of traces, is displayed. In the example shown in Figure~\ref{fig:trace_filter_dialog}, we filtered all the traces produced on ``Linux'', containing the string ``pj\_dump'' in the description.
 
 The first column of each row has a checkbox, allowing to select/deselect the corresponding trace. The checkbox in the first row (filter row) select/deselect all shown traces.
 When pressing \emph{OK}, all selected traces are highlighted (shown in bold) in the trace browser (Figure~\ref{fig:highlight}). This allows the analyst to immediately spot interesting traces in the browser.
@@ -306,6 +311,9 @@ In order to modify the time window visualized in the double range slider the use
   \caption{Time window dialog}
   \label{fig:window_dialog}
 \end{figure}
+
+%% TODO links here
+Regarding timestamps representation in Framesoc, if no time unit is indicated beside a displayed timestamp, by default the time unit used is the one shown in the Trace Details view for that trace (Time-Unit metadata). This apply to the bar described above, as well as to any other Framesoc view.
 
 \paragraph{View communication} Using the Framesoc Bus (described in the RT-447~\cite{pagano:hal-00977887}), Framesoc views can communicate to each other. This mechanism is mostly used to synchronize the different views on time intervals, and to propagate to all the views changes in colors (see Subsection~\ref{subsec:colors}) or trace metadata (see Subsection~\ref{subsec:metadata}).
 Regarding time interval synchronization, in the toolbar of each Framesoc analysis view, there are some \emph{Show in...} buttons, allowing the user to pass from one view to another, still keeping the same trace and the same time interval. Figure~\ref{fig:show_in} shows all the possible \emph{Show in...} buttons. 
