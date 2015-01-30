@@ -86,7 +86,6 @@ Generoso Pagano \thanks{INRIA, generoso.pagano@inria.fr}
 
 Framesoc, the SoC-Trace project~\cite{SoC-TRACE} trace management infrastructure, is composed by three main layers, as shown in Figure~\ref{fig:architecture}.
 
-%% TODO update figure
 \begin{figure}[h]
   \centering
     \includegraphics[width=0.7\textwidth]{images/framesoc_architecture.pdf}
@@ -115,7 +114,6 @@ Framesoc is an application built on top of the Eclipse framework. Therefore, the
 \label{sec:perspective}
 %=====================================================================
 
-%% TODO update figure
 \begin{figure}[h!]
   \centering
     \includegraphics[width=1.0\textwidth]{images/perspective_numbers.png}
@@ -134,11 +132,11 @@ The Framesoc perspective (Figure~\ref{fig:all_perspective}) contains the followi
 The management views (trace browser and metadata viewer/editor) refer to the whole system and are typically the entry point for trace analysis.
 For this reason, they cannot be closed and there can be only a single instance of each of them.
 On the contrary, all the analysis views refer to a single trace, so they can be opened and closed as needed. 
-The name of the trace currently shown inside an analysis view is displayed as the view name, beside the view icon.
+The alias of the trace currently shown within an analysis view is displayed as the view name, beside the view icon.
 For each trace, there can be an instance of each type of analysis view. 
 The maximum number of open instances for a given type of analysis view is configurable (Appendix~\ref{app:conf}).
 When a trace is selected in the trace browser, the corresponding metadata are shown in the metadata viewer and all the analysis views referring to that trace (if any) are highlighted. 
-Namely, the view name, which corresponds to the trace alias, is preceded by an arrow (\emph{>}). 
+Namely, the view name (which corresponds to the trace alias) is preceded by an arrow (\emph{>}). 
 In the example shown in Figure~\ref{fig:all_perspective}, all analysis views refer to the selected trace \texttt{nancy\_64\_cg.C.64}.
 On the other hand, when an analysis view is given focus, the trace shown in that view becomes the selected trace in the trace browser, so the metadata viewer is updated accordingly and all the analysis views are consistently highlighted or unhighlighted. 
 
@@ -189,7 +187,6 @@ The view toolbar contains the following buttons: a couple of buttons to expand (
 
 Pressing the button indicated as \num{3} in Figure~\ref{fig:popup_explorer}, the \emph{Trace Filter Dialog} is opened (Figure~\ref{fig:trace_filter_dialog}).
 
-%% TODO modify image: filter results
 \begin{figure}[h!]
   \centering
     \includegraphics[width=0.9\textwidth]{images/trace_table_filter.png}
@@ -312,7 +309,8 @@ In order to modify the time window visualized in the double range slider the use
   \label{fig:window_dialog}
 \end{figure}
 
-Regarding timestamps representation in Framesoc, if no time unit is indicated beside a displayed timestamp, by default the time unit used is the one shown in the Trace Details~\ref{subsec:metadata} view for that trace (\texttt{Time-Unit} metadata). 
+Regarding timestamps representation in Framesoc, if no time unit is indicated beside a displayed timestamp, 
+by default the time unit used is the one shown in the \emph{Trace Details} (Section~\ref{subsec:metadata}) view for that trace (\texttt{Time-Unit} metadata). 
 This applies to the time management bar described above, as well as to any other Framesoc GUI place.
 
 \paragraph{View communication} Using the Framesoc Bus (described in the RT-447~\cite{pagano:hal-00977887}), Framesoc views can communicate to each other. This mechanism is mostly used to synchronize the different views on time intervals, and to propagate to all the views changes in colors (see Subsection~\ref{subsec:colors}) or trace metadata (see Subsection~\ref{subsec:metadata}).
@@ -333,7 +331,6 @@ Of course, a view toolbar does not have a button redirecting to the view itself,
 \subsection{Statistics Pie Chart}
 \label{subsec:pie}
 
-%% TODO update figure
 \begin{figure}[h!]
   \centering
     \includegraphics[width=1.0\textwidth]{images/pie.png}
@@ -344,7 +341,7 @@ Of course, a view toolbar does not have a button redirecting to the view itself,
 The \emph{Statistics Pie Chart} view (Figure~\ref{fig:pie_chart}) is a Framesoc analysis view presenting several metrics in the form of a pie chart.
 The view is composed of two parts.
 On the left, there are the metric selector (\num{1}) and the actual pie chart (\num{2}).
-On the right, a table viewer (\num{4}) displays the same information as the pie. 
+On the right, a table viewer (\num{4}) displays the same information as the pie chart. 
 The table has three columns: the pie-slice name, the percentage value and the actual value. 
 The name column cells contain a small square icon, filled with the color corresponding to the slice.
 Each column header, when clicked, triggers the sorting of the rows according to the values in the corresponding column.
@@ -372,12 +369,11 @@ The commands available in this menu vary according to the elements selected.
 If the \emph{Aggregated} slice row is selected, no menu is shown.
 In any other case, the menu can contain one or more of the following commands:
 \begin{itemize}
- \item \emph{Exclude Item from statistics / Exclude items from statistics}: shown if only leaf items are selected. This command excludes the selected leaf items from statistics computation. 
+ \item \emph{Exclude Item from statistics / Exclude items from statistics}: shown if only leaf items are selected. This command excludes the selected leaf items from statistics computation. If there is at least one excluded item, the number of excluded items is shown in the status bar (\num{5}).
  \item \emph{Merge Items}: shown only if two or more leaf items are selected. This command merges the items in a new folder item. The name and the color of the new folder item are chosen by the user with the dialog shown in Figure~\ref{fig:merge_dialog}.
-    %% TODO better image please
     \begin{figure}[h!]
       \centering
-	\includegraphics[width=.3\textwidth]{images/dialog_merge.png}
+	\includegraphics[width=.25\textwidth]{images/dialog_merge.png}
       \caption{Merge Items Dialog}
       \label{fig:merge_dialog}
     \end{figure} 
@@ -386,14 +382,14 @@ In any other case, the menu can contain one or more of the following commands:
  \item \emph{Restore Excluded Items}: shown if at least on leaf item has been excluded from statistics computation. This command restores all previously excluded items into statistics computation.
 \end{itemize}
 
-
 Note that when a \emph{Statistics Pie Chart} view is opened for a given trace using the context menu in the trace browser, no pie chart is actually displayed, since the user has to select the metric of interest first, then press the load button (\num{6}) in the time management bar.
+
+The view toolbar contains the \emph{Show in...} buttons (\num{7}) and a couple of buttons to expand/collapse the folder items in the table (\num{8}).
 
 %------------------------------------------------------------------
 \subsection{Event Density Chart}
 \label{subsec:histogram}
 
-%% TODO update figure
 \begin{figure}[h!]
   \centering
     \includegraphics[width=1.0\textwidth]{images/histogram.png}
@@ -416,7 +412,7 @@ The \emph{Event Types} tab allows the user to select which event types will be u
 The \emph{Event Producers} tab does the same for event producers. 
 Both tabs present their content in a tree, reflecting the hierarchy of the displayed entities. 
 Each entity in the tree is preceded by a square icon, filled with the entity color.
-The tree elements can be filtered using the text box indicated as \num{6}. 
+The tree elements can be filtered using the text box indicated as \num{7}. 
 Each element of the tree can be checked/unchecked directly, by using the checkbox beside it.
 To check/uncheck more elements contextually, the user can use the buttons indicated as \num{3} (check all), \num{4} (uncheck all), \num{5} (check subtree), \num{6} (uncheck subtree).
 These buttons are enabled/disabled according to the element currently selected in the tree.
@@ -428,7 +424,6 @@ The event density is computed considering only the events in the selected time i
 \subsection{Event Table View}
 \label{subsec:table}
 
-% TODO update figure
 \begin{figure}[h!]
   \centering
     \includegraphics[width=1.0\textwidth]{images/table.png}
@@ -461,7 +456,6 @@ Beside the three \emph{Show in...} buttons indicated as \num{3} (see Subsection~
 \subsection{Gantt Chart View}
 \label{subsec:gantt}
 
-%% TODO update figure
 \begin{figure}[h!]
   \centering
     \includegraphics[width=1.0\textwidth]{images/gantt.png}
@@ -497,16 +491,16 @@ When zooming/dezooming the following functionalities can be triggered:
 \begin{itemize}
  \item State aggregation: if there are not enough pixels to show all the states in a given time region, these states are aggregated and a black point is displayed above the point where the aggregation took place. 
  \item Link filtering: if there are not enough pixels to show all the links in a given time region, only the visible links are shown. 
- The percentage of shown links (computed over the total of links in the time region currently visible) is displayed above the Gantt chart (\num{12}).
+ The percentage of shown links (computed over the total of links in the time region currently visible) is displayed above the Gantt chart (\num{14}).
+ When there exist no links in the trace (in the time region currently visible) the percentage value is \texttt{100\%}.
 \end{itemize}
-These two functionalities keep the user aware of what is going (information loss) on, thus reducing visual artifacts and possible analysis pitfalls.
+These two functionalities keep the user aware of what is going on (information loss), thus reducing visual artifacts and possible analysis pitfalls.
 
 The user can select a time region in the Gantt using the mouse (click on the start point, then drag and release on the end point). 
 While selecting a given region, the same selection is applied to the time management bar present at the bottom of the view (see Subsection~\ref{subsec:principles}).
 Similarly, changing the selection in the time management bar, changes the selection in the Gantt chart.
 When a time region is selected, clicking on a given point of the Gantt chart removes the selection and restore the time management bar selection as it was before.
 
-%% TODO verify numbers
 Beside the three \emph{Show in...} buttons indicated as \num{13} (see Subsection~\ref{subsec:principles}), the view toolbar contains the following buttons:
  \begin{itemize}
   \item Button \num{1}: display a dialog where it is possible to select the event producers to display.
@@ -583,7 +577,7 @@ Otherwise, if MySQL is chosen (Figure~\ref{fig:dbms_configuration_mysql}), the u
 
 In both cases, after pressing \emph{Finish}, the Framesoc storage subsystem is correctly configured. 
 If a System DB already exists, it is reused, otherwise a new one is created.
-This configuration is saved in the Framesoc configuration file (Appendix~\ref{app:conf}). %% $\sim$/.soctrace.conf
+This configuration is saved in the Framesoc configuration file (Appendix~\ref{app:conf}). 
 
 \begin{figure}[h!]
  \centering
@@ -687,7 +681,6 @@ The \emph{OK} button becomes active only if the input specified is considered va
 Pressing \emph{OK} the import process is launched with the provided input.
 At the end of this process, the trace browser view is automatically updated with the new trace information.
 
-%% TODO better image please
 \begin{figure}[h!]
   \centering
     \includegraphics[width=0.5\textwidth]{images/import_dialog.png}
@@ -702,7 +695,6 @@ The launch analysis tool dialog (Figure~\ref{fig:analysis_dialog}) allows the us
 This dialog has the same structure of the Import Trace dialog (see Subsection~\ref{subsec:import}). 
 Pressing \emph{OK}, the selected analysis tool is launched with the provided input. 
 
-%% TODO Update figure
 \begin{figure}[h!]
   \centering
     \includegraphics[width=0.5\textwidth]{images/analysis_dialog.png}
@@ -717,7 +709,6 @@ The launch export tool dialog (Figure~\ref{fig:analysis_dialog}) allows the user
 This dialog has the same structure of the Import Trace dialog (see Subsection~\ref{subsec:import}). 
 Pressing \emph{OK}, the selected export tool is launched with the provided input. 
 
-%% TODO update image
 \begin{figure}[h!]
   \centering
     \includegraphics[width=0.5\textwidth]{images/export_dialog.png}
