@@ -16,6 +16,9 @@
 \usepackage{textcomp}
 \usepackage[hidelinks]{hyperref} % hide link squares
 \usepackage{listings}
+
+
+
 %%
 %% date
 \RRdate{May 2015}
@@ -31,9 +34,9 @@ Generoso Pagano\thanks{INRIA, generoso.pagano@inria.fr}, Youenn Corre\thanks{INR
 %% On each even page
 \authorhead{Framesoc User Guide}
 %% French title
-\RRtitle{Framesoc User Guide}
+\RRtitle{Framesoc User Guide \LARGE{\numVersion}}
 %% English title
-\RRetitle{Framesoc User Guide}
+\RRetitle{Framesoc User Guide \\\footnotesize{~ } \\ \large{\numVersion}}
 %%
 \titlehead{Framesoc User Guide}
 %%
@@ -43,7 +46,7 @@ Generoso Pagano\thanks{INRIA, generoso.pagano@inria.fr}, Youenn Corre\thanks{INR
 %%
 \RCGrenoble 
 %%
-\abstract{This guide describes the Framesoc workbench, in its version 1.0.7, which is the desktop user environment provided by Framesoc infrastructure. The document targets the end-users.}
+\abstract{This guide describes the Framesoc workbench, which is the desktop user environment provided by Framesoc infrastructure. The document targets the end-users.}
 
 %%=====================================================================
 %%=====================================================================
@@ -61,7 +64,7 @@ Generoso Pagano\thanks{INRIA, generoso.pagano@inria.fr}, Youenn Corre\thanks{INR
 \newcommand{\subparag}[1]{\subparagraph{#1}\mbox{}\\}
 \newcommand{\subsubparag}[1]{\subparagraph{#1}}
 \newcommand{\num}[1]{\textcolor{red}{#1}}
-
+\newcommand{\numVersion}{v1.0.7}
 %% 
 %% Itemize
 \renewcommand{\labelitemi}{$\bullet$}
@@ -314,8 +317,8 @@ by default the time unit used is the one shown in the \emph{Trace Details} (Sect
 This applies to the time management bar described above, as well as to any other Framesoc GUI place.
 
 
-\paragraph{Event producer and event types filter}
-The pie chart, the histogram and the Gantt chart views all have filter options in order to give more control to the user over their representations. These filters allows to select the event producers and the event types used when computing the statistics. These filters can be accessed through the buttons in Figure \ref{fig:filterButtons} that are in the top right corner of the views. Clicking on one of these buttons will open a new dialog. 
+\paragraph{Event producer and event type filter}
+The pie chart, the histogram and the Gantt chart views all have filter options in order to give the users more control over their analysis. These filters allow to select the event producers and the event types used when computing the statistics. These filters can be accessed through the buttons in Figure \ref{fig:filterButtons} that are in the top right corner of the views. Clicking on one of these buttons will open a new dialog. 
 
 \begin{figure}[h!]
 	\centering
@@ -341,17 +344,17 @@ The pie chart, the histogram and the Gantt chart views all have filter options i
  \label{fig:dbms_configuration}       
 \end{figure}
 
-For the event producers filter, as shown in Figure \ref{fig:eprod_dialog}, all the event producers are displayed as a hierarchy tree, where each node and leaf is a checkbox that allow to select the event producer. At the bottom of the window, several buttons are available that allow to perform select operations. These buttons are:
+For the event producer filter dialog, shown in Figure \ref{fig:eprod_dialog}, all the event producers are displayed as a hierarchy tree, where each node and leaf is a checkbox that allow to select the event producer. At the bottom of the window, several buttons are available that allow to perform select operations. These buttons are:
 \begin{itemize}
 	\item \emph{Check/Uncheck Selected:} select/unselect the selected producer.
 	\item \emph{Check/Uncheck Subtree:} select/unselect the selected producer and all its children in the hierarchy.
 	\item \emph{Check/Uncheck All:} select/unselect all the event producers. 
 \end{itemize}
-At the top of the hierarchy tree, an editable text field can be use to search among the event producers.
+At the top of the hierarchy tree, an editable text field can be used to search among the event producers.
 
-The event type filter dialog, illustrated in Figure \ref{fig:etype_dialog}, displayed all the event types present in the current trace. The event types are displayed as hierarchy tree where they are grouped by their category (i.e. punctual event, state, link or variable). The dialog is similar to the event producer one, described in the previous paragraph. There is thus a text field to search among the event types and the buttons to perform the select operations.
+The event type filter dialog, illustrated in Figure \ref{fig:etype_dialog}, displayed all the event types present in the current trace. The event types are displayed as a hierarchy tree where they are grouped by their category (i.e. punctual event, state, link or variable). The dialog is similar to the event producer one, described in the previous paragraph, including the text field to search among the event types and the buttons to perform the select operations.
 
-Note that as opposed to the time management bar, where in order to perform the filtering on time the user has to press a button, these filters are applied immediately after the user has pressed the \emph{OK} button in the dialog.
+Note that as opposed to the time management bar, where in order to perform the filtering on time the user has to press a button, these filters are applied and the view updated immediately after the user has pressed the \emph{OK} button in the dialog.
 
 \paragraph{View communication} Using the Framesoc Bus (described in the RT-447~\cite{pagano:hal-00977887}), Framesoc views can communicate with each other. This mechanism is mostly used to synchronize the different views on time intervals, and to propagate to all the views changes in colors (see Subsection~\ref{subsec:colors}) or trace metadata (see Subsection~\ref{subsec:metadata}).
 Regarding time interval synchronization, in the toolbar of each Framesoc analysis view, there are some \emph{Show in...} buttons, allowing the user to pass from one view to another, still keeping the same trace and the same time interval. Figure~\ref{fig:show_in} shows all the possible \emph{Show in...} buttons. 
@@ -363,9 +366,12 @@ Regarding time interval synchronization, in the toolbar of each Framesoc analysi
   \label{fig:show_in}
 \end{figure}
 
-Button \num{1} switches to the event table view (see Subsection~\ref{subsec:table}). Button \num{2} switches to the Gantt chart view (see Subsection~\ref{subsec:gantt}). Button \num{3} switches to the statistics pie chart view; in this case, the a dialog is shown to the user in order to select one of the possible statistics operators (see Subsection~\ref{subsec:pie}). Button \num{3} switches to the event density chart view (Subsection~\ref{subsec:histogram}).
+Button \num{1} switches to the event table view (see Subsection~\ref{subsec:table}). Button \num{2} switches to the Gantt chart view (see Subsection~\ref{subsec:gantt}). Button \num{3} switches to the statistics pie chart view; in this case, a dialog is shown to the user in order to select one of the possible statistics operators (see Subsection~\ref{subsec:pie}). Button \num{4} switches to the event density chart view (Subsection~\ref{subsec:histogram}).
 
 Of course, a view toolbar does not have a button redirecting to the view itself, so only three out of four possible \emph{Show in...} buttons are displayed in each view toolbar.
+
+\paragraph{Group of view}
+If the \emph{Allow view replication} option in the preferences is enabled (see Subsubsection \ref{subsec:gui}), it is possible to open several views on the same trace. This is done by right-clicking on a trace in the Trace browser and, if a view of an analysis tool is already opened with this trace, then the \emph{Show another...} menu item appears. Clicking on this option will open a new view with the selected trace and also creates a new \emph{group of view}. A group defines a family of different types of views (i.e., Gantt, Pie, etc.) for a given trace. Each instance of a view of an analysis tool belongs to a different group. Thus, if the user performs a switch to another view, if the group of view does not yet contain an instance of this view and if the maximum number instance of a view set in the option has not been reached, a new instance of the demanded view will be created. If a view already exists within the group, then this view is put forward and it is synchronized on time (as described in the previous paragraph).  When there are at least two groups of view for the same trace, the name of the trace in the views is preceded by a number identifying the group to which it belongs.
 
 %------------------------------------------------------------------
 \subsection{Statistics Pie Chart}
@@ -373,7 +379,7 @@ Of course, a view toolbar does not have a button redirecting to the view itself,
 
 \begin{figure}[h!]
   \centering
-    \includegraphics[width=1.0\textwidth]{images/pie.pdf}
+    \includegraphics[width=1.0\textwidth]{images/pie.png}
   \caption{Statistics Pie Chart view}
   \label{fig:pie_chart}
 \end{figure}
@@ -439,23 +445,14 @@ The view toolbar contains the \emph{Show in...} buttons (\num{9}), the filter bu
 
 The \emph{Event Density Chart} view (Figure~\ref{fig:histogram}) is a Framesoc analysis view displaying the event density over time in the form of a histogram.
 
-The histogram is on the left of the view (\num{1}).
-The $x$ axis represents the time, while the $y$ axis represents the number of events.
+In the histogram (\num{1}), the $x$ axis represents the time, while the $y$ axis represents the number of events.
 The histogram number of bins is fixed and has been chosen taking into account the number of pixels actually present on a screen, to ensure a clear visualization. 
-The user can zoom in and out on portions of the chart. 
-In particular, to zoom in on a portion of the chart, the user has to click to the start of the portion, drag the mouse going to the right up to the end of the portion, then release the click.
+The user can zoom in and out on portions of the chart.
+In particular, to zoom in on a portion of the chart, the user has to click at the start of the portion, drag the mouse going to the right up to the end of the portion, then release the click.
 To zoom out completely, the user has to do the same as above, but dragging the mouse to the left this time.
-When hovering the mouse on a bin, some information about the bin is displayed (the central timestamp and the number of events).
+When hovering the mouse on a bin, some information about the bin is displayed: the central timestamp and the number of events.
 
-On the right, there is a tab browser (\num{2}), containing two tabs: \emph{Event Types} and \emph{Event Producers}. 
-The \emph{Event Types} tab allows the user to select which event types will be used to generate the histogram. 
-The \emph{Event Producers} tab does the same for event producers. 
-Both tabs present their content in a tree, reflecting the hierarchy of the displayed entities. 
-Each entity in the tree is preceded by a square icon, filled with the entity color.
-The tree elements can be filtered using the text box indicated as \num{7}. 
-Each element of the tree can be checked/unchecked directly, by using the checkbox beside it.
-To check/uncheck more elements contextually, the user can use the buttons indicated as \num{3} (check all), \num{4} (uncheck all), \num{5} (check subtree), \num{6} (uncheck subtree).
-These buttons are enabled/disabled according to the element currently selected in the tree.
+In top right corner, there is the event type and event producer filter buttons (\num{2}), and the view switching buttons (\num{3}). The features of these buttons are described in Subsection \ref{subsec:principles}.
 
 At the bottom of the view, there is the time management bar described in Subsection~\ref{subsec:principles}.
 The event density is computed considering only the events in the selected time interval, for the selected types and the selected producers.
@@ -532,7 +529,7 @@ When zooming in/out the following functionalities can be triggered:
  \item State aggregation: if there are not enough pixels to show all the states in a given time region, these states are aggregated and a black point is displayed above the point where the aggregation took place. 
  \item Link filtering: if there are not enough pixels to show all the links in a given time region, only the visible links are shown. 
  The percentage of shown links (computed over the total of links in the time region currently visible) is displayed above the Gantt chart (\num{14}).
- When there exist no links in the trace (in the time region currently visible) the percentage value is \texttt{100\%}.
+ When there exist no links in the trace (in the time region currently visible) the percentage value is \texttt{100\%}. This state of this option is global, i.e. the future instances of the Gantt chart view will use the value of this option when it was last modified (e.g. if link display is turned off in the Gantt, all the next instances of the Gantt view will not display the links). 
 \end{itemize}
 These two functionalities keep the user aware of what is going on (information loss), thus reducing visual artifacts and possible analysis pitfalls.
 
@@ -589,21 +586,21 @@ In the following subsections, the functionalities accessible from the menu or th
 
 \subsection{Preferences}
 \label{subsec:pref}
-The preferences dialog allows the user to configure various settings of Framesoc elements. There are four tabs in the preferences dialog: database, GUI, color management and tools management.
+The preferences dialog allows the user to configure various settings of Framesoc elements. There are four tabs in the preferences dialog: database, GUI, color management and tool management. The settings modified in this dialog are saved in the Framesoc configuration file (Appendix~\ref{app:conf}). 
 
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=.5\textwidth]{images/pref_db.png}
 	\caption{Preferences dialog -- Database settings tab}
-	\label{fig:pref_dialog}
+	\label{fig:pref_dialog_db}
 \end{figure} 
 
 \subsubsection{Database Settings}
-The database settings is subdivided in two groups: indexing settings and database settings. The indexing settings allow the user to chose if the traces imported with any of the importers in Framesoc, will be indexed whether on time, on event ID or on both. 
+The database settings tab, shown in Figure \ref{fig:pref_dialog_db}, is subdivided in two groups: database settings and indexing settings. 
 
-The database settings displays information about the currently use DBMS and its settings. If the current DBMS is SQLite, then the path to the current databse is displayed. If the current DBMS is MySQL, then the user name and the URL of the database are shown.
+The indexing settings allow the user to choose if the traces imported with any of the importers in Framesoc, will be indexed on time, on event ID or on both. 
 
-In order to modify the database settings, you have to click on the button \textit{Launch DBMS configuration}. This will open the DBMS configuration wizard.
+The database settings group displays information about the currently used DBMS and its settings. If the current DBMS is SQLite, then the path to the current database is displayed. If the current DBMS is MySQL, then the user name and the URL of the database are shown. In order to modify the database settings, you have to click on the button \textit{Launch DBMS configuration}. This will open the DBMS configuration wizard described below.
 
 \paragraph{DataBase Management System Configuration}
 \label{subsec:init}
@@ -621,7 +618,7 @@ At the moment, the support has been implemented for SQLite (recommended) and MyS
 \end{figure}
 
 Once the user has chosen the DBMS and pressed \emph{Next}, he comes to the DBMS configuration page (Figure~\ref{fig:dbms_configuration}), which is different for each DBMS.
-If SQLite is selected (Figure~\ref{fig:dbms_configuration_sqlite}), the user has simply to enter the directory where he wants the database files to be kept.
+If SQLite is selected (Figure~\ref{fig:dbms_configuration_sqlite}), the user simply has to enter the directory where he wants the database files to be kept.
 Otherwise, if MySQL is chosen (Figure~\ref{fig:dbms_configuration_mysql}), the user has to specify some connection parameters (user-name, password, URL).
 
 In both cases, after successfully pressing \emph{Finish}, the Framesoc storage subsystem is correctly configured. 
@@ -647,7 +644,7 @@ This configuration is saved in the Framesoc configuration file (Appendix~\ref{ap
 
 Note that after a modification of the database settings (at initialization or later), in the case of existing System DB, if there is a mismatch between the tools registered in this System DB and the tools actually present in the Framesoc Eclipse runtime\footnote{As described in the technical report RT-435~\cite{pagano:hal-00830008} the preferred way to add tools to Framesoc is to create an Eclipse plugin, extending a specific extension point defined by Framesoc. For this reason a tool is typically a plugin in the Framesoc Eclipse runtime.}, this is automatically fixed:
 \begin{itemize}
- \item If a tool exists in the DB but not in the runtime, the tool is removed with its results (if any)\footnote{The user is asked for confirmation if the \texttt{ask\_for\_tool\_removal} variable is set to \texttt{true} in Framesoc configuration file (see Appendix~\ref{app:conf})}.
+ \item If a tool exists in the DB but not in the runtime, the tool is removed with its results (if any)\footnote{The user is asked for confirmation if the \texttt{ask\_for\_tool\_removal} variable is set to \texttt{true} in Framesoc configuration file (see Appendix~\ref{app:conf}).}.
  \item If a tool exists in the runtime but not in the DB, the tool is automatically registered.
 \end{itemize}
 
@@ -655,13 +652,21 @@ The first time Framesoc is launched, the database configuration wizard is automa
 Note also that at each Framesoc startup, the system automatically checks that the storage configuration is good. 
 If it is not the case, the database configuration wizard is automatically launched.
 
-A control for mismatch between runtime tools and System DB tools is equally done at each startup, with the same policy as described above.
+A control for mismatch between runtime tools and System DB tools is also done at each startup, with the same policy as described above.
 
 \subsubsection{GUI settings}
 \label{subsec:gui}
-In the GUI settings tab, it is possible to configure two options that manage the views of the Framesoc tools. The first setting specifies the maximum number of instances of a view (e.g. the Gantt Chart) that can be opened simultaneously. The value can be set to -1, meaning that there will be no limit on the number of simultaneous instances. If the value is set to 0, then it is equivalent to a value of 1.
 
-The second setting is a checkbox that specifies if it is possible to open simultaneously several instances of the view on the same trace.
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=.5\textwidth]{images/pref_gui.png}
+	\caption{Preferences dialog -- GUI settings tab}
+	\label{fig:pref_dialog_gui}
+\end{figure}
+
+In the GUI settings tab (Figure \ref{fig:pref_dialog_gui}), it is possible to configure two options that manage the views of the Framesoc analysis tools. The first option specifies the maximum number of instances of a view (e.g. the Gantt Chart) that can be opened simultaneously. The value can be set to -1, meaning that there will be no limit on the number of simultaneous instances. If the value is set to 0, then it is equivalent to a value of 1.
+
+The second option is a checkbox that specifies if it is possible to open simultaneously several instances of the view on the same trace.
 
 \subsubsection{Color Management}
 \label{subsec:colors}
@@ -671,17 +676,17 @@ The combo box at the top (\num{1}) enables the selection of the entity (event pr
 The list below enumerates all instances for a given entity, preceded by a small square icon filled with the instance color.
 The editable text field on top of this list can be used as a filter on the list.
 When an entity instance is selected, pressing the \emph{edit} button (\num{2}) gives access to the color edition dialog (Figure~\ref{fig:color_editing}).
-Pressing \emph{OK} saves all changes.
-Pressing the \emph{reset} button (\num{3}), reverts unsaved changes.
+Pressing \emph{OK} saves all the changes.
+Pressing the \emph{reset} button (\num{3}) reverts unsaved changes for the current entity.
 The color configuration for a given entity is physically stored in a configuration file located in the \texttt{configuration/fr.inria.soctrace.framesoc.ui} sub-folder of the Eclipse install directory.
-For example, the relative path to eclipse install directory of the event type color configuration file is:
+For example, the relative path to Eclipse install directory of the event type color configuration file is:
 \texttt{configuration/fr.inria.soctrace.framesoc.ui/event\_type\_colors}.
 
 \begin{figure}[h!]
   \centering
   \begin{subfigure}[c]{0.46\textwidth}
-    \includegraphics[width=1.0\textwidth]{images/color_type_list_MPI.png}
-    \caption{Color management dialog}
+    \includegraphics[width=1.0\textwidth]{images/pref_color.png}
+    \caption{Color management tab}
     \label{fig:color_type_list_MPI}
   \end{subfigure}%
   \hspace{30pt}
@@ -692,7 +697,7 @@ For example, the relative path to eclipse install directory of the event type co
   \end{subfigure}%
   \caption{Framesoc Color Management}
   \label{fig:colors}       
- \end{figure}
+\end{figure}
 
 Note that when \emph{OK} is pressed after changing some colors, the workbench modules are notified and the views may react by updating their colors in real-time.
 
@@ -705,8 +710,8 @@ enabling the installation, modification and removal of external \emph{black-box}
 
 \begin{figure}[h!]
   \centering
-    \includegraphics[width=0.5\textwidth]{images/manage_tools.png}
-  \caption{Tool manager}
+    \includegraphics[width=0.5\textwidth]{images/pref_tool.png}
+  \caption{Tool manager tab}
   \label{fig:manage_tools}
 \end{figure}
 
