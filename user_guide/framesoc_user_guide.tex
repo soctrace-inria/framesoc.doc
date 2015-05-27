@@ -17,8 +17,6 @@
 \usepackage[hidelinks]{hyperref} % hide link squares
 \usepackage{listings}
 
-
-
 %%
 %% date
 \RRdate{May 2015}
@@ -182,6 +180,7 @@ Extra options in this menu may be available, depending on the tools currently in
 If more than one trace is selected, only the \emph{Switch highlight} and \emph{Delete Trace} entries are displayed in this context menu.
 Note that if one or more traces are deleted, an update notification is sent to the other views.
 This allows a view to do the necessary actions if the trace it displays has been deleted.
+Note also that if a given type of analysis view (e.g., the Gantt chart view) is already open for a given trace, when right-clicking on that trace the context menu will propose to open a new instance of that type of view (e.g., \emph{Show Another Gantt Chart} menu entry).
 
 The view toolbar contains the following buttons: a couple of buttons to expand (\num{1}) and collapse (\num{2}) the trace hierarchy, a button to launch the \emph{Trace Filter Dialog} (\num{3}, see Subsection~\ref{subsubsec:trace_filter}), a button to clean the highlight state of all traces (\num{4}, see Subsection~\ref{subsubsec:trace_filter}) and a button to manually resynchronize the displayed traces with the information contained in the Framesoc System DB\footnote{See the technical report RT-427~\cite{pagano:hal} for further details on the database architecture.} (\num{5}).
 
@@ -197,7 +196,7 @@ Pressing the button indicated as \num{3} in Figure~\ref{fig:popup_explorer}, the
   \label{fig:trace_filter_dialog}
 \end{figure}
 
-This dialog displays a table containing all the traces imported in the system. Each column of this table corresponds to a particular trace metadata. Clicking on the header of each column, it is possible to sort the table rows according to the column content. The first row of the table has editable fields, allowing for filtering on the corresponding column content. Filtering can be done using regular expression. At the bottom of the table, the number of traces matched by the filter, over the totality of traces, is displayed. In the example shown in Figure~\ref{fig:trace_filter_dialog}, we filtered all the traces produced on ``Linux'', containing the string ``pj\_dump'' in the description.
+This dialog displays a table containing all the traces imported in the system. Each column of this table corresponds to a particular trace metadata. Clicking on the header of each column, it is possible to sort the table rows according to the column content. The first row of the table has editable fields, allowing for filtering on the corresponding column content. Filtering can be done using regular expressions. At the bottom of the table, the number of traces matched by the filter, over the totality of traces, is displayed. In the example shown in Figure~\ref{fig:trace_filter_dialog}, we filtered all the traces produced on ``Linux'', containing the string ``pj\_dump'' in the description.
 
 The first column of each row has a checkbox, allowing to select/deselect the corresponding trace. The checkbox in the first row (filter row) select/deselect all shown traces.
 When pressing \emph{OK}, all selected traces are highlighted (shown in bold) in the trace browser (Figure~\ref{fig:highlight}). This allows the analyst to immediately spot interesting traces in the browser.
@@ -268,7 +267,7 @@ Before describing in detail the different Framesoc analysis views, we present he
 
 All Framesoc analysis views try to maximize the interactivity and responsiveness of the system by pipelining data loading and visualization. This allows the user to start working with data (or at least visualize it), while the loading job is ongoing. For example, the Gantt chart allows for zooming in/out or panning the visualized part of the trace, while trace events are being loaded. 
 
-The user has full control on the loading job, and can stop it when she wants. In this case, the data loaded so far are still available for analysis. To cancel a loading job, the user uses the \emph{Progress} view (see for example Figure~\ref{fig:progress} for the \emph{Progress} view showing the Gantt loading process.).
+The user has full control on the loading job, and can stop it when she wants. In this case, the data loaded so far are still available for analysis. To cancel a loading job, the user uses the \emph{Progress} view (see for example Figure~\ref{fig:progress} for the \emph{Progress} view showing the Gantt loading process).
 
 \begin{figure}[h!]
   \centering
@@ -318,7 +317,10 @@ This applies to the time management bar described above, as well as to any other
 
 
 \paragraph{Event producer and event type filter}
-The pie chart, the histogram and the Gantt chart views all have filter options in order to give the users more control over their analysis. These filters allow to select the event producers and the event types used when computing the statistics. These filters can be accessed through the buttons in Figure \ref{fig:filterButtons} that are in the top right corner of the views. Clicking on one of these buttons will open a new dialog. 
+The pie chart, the histogram and the Gantt chart views all have filter options in order to give the users more control over their analysis. 
+These filters allow to select the event producers and the event types used when loading the view. 
+These filters can be accessed through the buttons in Figure \ref{fig:filterButtons} that are in the top right corner of the views. 
+Clicking on one of these buttons will open a new dialog. 
 
 \begin{figure}[h!]
 	\centering
@@ -354,7 +356,7 @@ At the top of the hierarchy tree, an editable text field can be used to search a
 
 The event type filter dialog, illustrated in Figure \ref{fig:etype_dialog}, displayed all the event types present in the current trace. The event types are displayed as a hierarchy tree where they are grouped by their category (i.e. punctual event, state, link or variable). The dialog is similar to the event producer one, described in the previous paragraph, including the text field to search among the event types and the buttons to perform the select operations.
 
-Note that as opposed to the time management bar, where in order to perform the filtering on time the user has to press a button, these filters are applied and the view updated immediately after the user has pressed the \emph{OK} button in the dialog.
+Note that as opposed to the time management bar, where in order to perform the filtering on time the user has to press a button, these filters are applied immediately after the user has pressed the \emph{OK} button in the dialog.
 
 \paragraph{View communication} Using the Framesoc Bus (described in the RT-447~\cite{pagano:hal-00977887}), Framesoc views can communicate with each other. This mechanism is mostly used to synchronize the different views on time intervals, and to propagate to all the views changes in colors (see Subsection~\ref{subsec:colors}) or trace metadata (see Subsection~\ref{subsec:metadata}).
 Regarding time interval synchronization, in the toolbar of each Framesoc analysis view, there are some \emph{Show in...} buttons, allowing the user to pass from one view to another, still keeping the same trace and the same time interval. Figure~\ref{fig:show_in} shows all the possible \emph{Show in...} buttons. 
@@ -371,7 +373,14 @@ Button \num{1} switches to the event table view (see Subsection~\ref{subsec:tabl
 Of course, a view toolbar does not have a button redirecting to the view itself, so only three out of four possible \emph{Show in...} buttons are displayed in each view toolbar.
 
 \paragraph{Group of view}
-If the \emph{Allow view replication} option in the preferences is enabled (see Subsubsection \ref{subsec:gui}), it is possible to open several views on the same trace. This is done by right-clicking on a trace in the Trace browser and, if a view of an analysis tool is already opened with this trace, then the \emph{Show another...} menu item appears. Clicking on this option will open a new view with the selected trace and also creates a new \emph{group of view}. A group defines a family of different types of views (i.e., Gantt, Pie, etc.) for a given trace. Each instance of a view of an analysis tool belongs to a different group. Thus, if the user performs a switch to another view, if the group of view does not yet contain an instance of this view and if the maximum number instance of a view set in the option has not been reached, a new instance of the demanded view will be created. If a view already exists within the group, then this view is put forward and it is synchronized on time (as described in the previous paragraph).  When there are at least two groups of view for the same trace, the name of the trace in the views is preceded by a number identifying the group to which it belongs.
+If the \emph{Allow view replication} option in the preferences is enabled (see Subsubsection \ref{subsec:gui}), it is possible to open several instances of the same type of view for the same trace. 
+Indeed, when right-clicking on a trace in the Trace browser, if for that trace an instance of a given type of view is already open, the \emph{Show Another...} menu item is proposed. 
+Clicking on this option will open a new instance of the selected type of view for the selected trace and also creates a new \emph{group of view}. 
+A group defines a family of different types of views (i.e., Gantt, Pie, etc.) open with a given trace.
+Each group can contain one instance of each type of view.
+If the user performs a switch from a type of view (e.g., Gantt) to another (e.g., Pie), if the group of view does not yet contain an instance of the demanded view, a new instance of such a view will be created for the group.
+On the contrary, if the demanded type of view already exists in the group, this view is put forward and it is synchronized on time (as described in the previous paragraph).  
+When there are at least two groups of view for the same trace, the name of the trace in the views is preceded by a number identifying the group to which it belongs.
 
 %------------------------------------------------------------------
 \subsection{Statistics Pie Chart}
@@ -529,7 +538,7 @@ When zooming in/out the following functionalities can be triggered:
  \item State aggregation: if there are not enough pixels to show all the states in a given time region, these states are aggregated and a black point is displayed above the point where the aggregation took place. 
  \item Link filtering: if there are not enough pixels to show all the links in a given time region, only the visible links are shown. 
  The percentage of shown links (computed over the total of links in the time region currently visible) is displayed above the Gantt chart (\num{14}).
- When there exist no links in the trace (in the time region currently visible) the percentage value is \texttt{100\%}. This state of this option is global, i.e. the future instances of the Gantt chart view will use the value of this option when it was last modified (e.g. if link display is turned off in the Gantt, all the next instances of the Gantt view will not display the links). 
+ When there exist no links in the trace (in the time region currently visible) the percentage value is \texttt{100\%}.
 \end{itemize}
 These two functionalities keep the user aware of what is going on (information loss), thus reducing visual artifacts and possible analysis pitfalls.
 
@@ -542,7 +551,7 @@ Beside the three \emph{Show in...} buttons indicated as \num{13} (see Subsection
 \begin{itemize}
 	\item Button \num{1}: display a dialog where it is possible to select the event producers to display.
 	\item Button \num{2}: display a dialog where it is possible to select the types to display.
-	\item Button \num{3}: hide/display links.
+	\item Button \num{3}: hide/display links. The state of this option is global,     i.e., the future instances of the Gantt chart view will use the value of the option when it was last modified (e.g. if link display is turned off in the Gantt, all the next instances of the Gantt view will not display the links). 
 	\item Button \num{4}: fit the zoom to the available screen space, to display all the loaded portion of the trace in the view.
     \item Button \num{5}: zoom in.
 	\item Button \num{6}: zoom out.
@@ -596,7 +605,7 @@ The preferences dialog allows the user to configure various settings of Framesoc
 \end{figure} 
 
 \subsubsection{Database Settings}
-The database settings tab, shown in Figure \ref{fig:pref_dialog_db}, is subdivided in two groups: database settings and indexing settings. 
+The database settings tab, shown in Figure \ref{fig:pref_dialog_db}, is divided in two groups: database settings and indexing settings. 
 
 The indexing settings allow the user to choose if the traces imported with any of the importers in Framesoc, will be indexed on time, on event ID or on both. 
 
@@ -664,8 +673,10 @@ A control for mismatch between runtime tools and System DB tools is also done at
 	\label{fig:pref_dialog_gui}
 \end{figure}
 
-In the GUI settings tab (Figure \ref{fig:pref_dialog_gui}), it is possible to configure two options that manage the views of the Framesoc analysis tools. The first option specifies the maximum number of instances of a view (e.g. the Gantt Chart) that can be opened simultaneously. The value can be set to -1, meaning that there will be no limit on the number of simultaneous instances. If the value is set to 0, then it is equivalent to a value of 1.
-
+In the GUI settings tab (Figure \ref{fig:pref_dialog_gui}), it is possible to configure two options for Framesoc analysis view management.
+The first option specifies the maximum number of instances of a type of view (e.g., the Gantt chart) that can be opened simultaneously. 
+The value can be set to -1, meaning that there will be no limit on the number of simultaneous instances. 
+If the value is set to 0, then it is equivalent to a value of 1.
 The second option is a checkbox that specifies if it is possible to open simultaneously several instances of the view on the same trace.
 
 \subsubsection{Color Management}
@@ -801,8 +812,10 @@ It contains the following parameters:
  \item[sqlite\_db\_directory]: Directory containing the SQLite database files.
  \item[soctrace\_db\_name]: Name of the Framesoc System DB.
  \item[max\_view\_instances]: Maximum number of instances for a given type of analysis views.
- \item[trace\_db\_indexing]: Boolean stating if automatic time indexing is done at trace import.
+ \item[trace\_db\_ts\_indexing]: Boolean stating if automatic time indexing is done at trace import.
+ \item[trace\_db\_eid\_indexing]: Boolean stating if automatic indexing on event ID in EVENT\_PARAM table is done at trace import.
  \item[ask\_for\_tool\_removal]: Boolean stating if user confirmation must be asked when removing a tool and its results.
+ \item[allow\_view\_replication]: Boolean stating if it is possible to open more instances of the same type of view for a given trace.
 \end{description}
 
 %% bibliography
