@@ -5,7 +5,7 @@
 \documentclass[twoside]{article}
 \usepackage[a4paper]{geometry}
 \usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
+%%\usepackage[T1]{fontenc}
 \usepackage{RR}
 \usepackage{epsfig}
 \usepackage[english]{babel}
@@ -17,11 +17,9 @@
 \usepackage[hidelinks]{hyperref} % hide link squares
 \usepackage{listings}
 
-
-
 %%
 %% date
-\RRdate{May 2015}
+\RRdate{July 2015}
 %%
 %% If version 2
 %% \RRversion{2}
@@ -64,7 +62,7 @@ Generoso Pagano\thanks{INRIA, firstname.lastname@inria.fr}, Youenn Corre\footnot
 \newcommand{\subparag}[1]{\subparagraph{#1}\mbox{}\\}
 \newcommand{\subsubparag}[1]{\subparagraph{#1}}
 \newcommand{\num}[1]{\textcolor{red}{#1}}
-\newcommand{\numVersion}{v1.0.7}
+\newcommand{\numVersion}{v1.0.8}
 %% 
 %% Itemize
 \renewcommand{\labelitemi}{$\bullet$}
@@ -291,14 +289,15 @@ The user controls the portion of the trace actually loaded into memory and displ
 \end{figure}
 
 This bar contains a double range time slider (\num{1}) representing the whole trace duration, surrounded by two arrow buttons (\num{2} and \num{3}), and followed by four more buttons on the right (\num{4}, \num{5}, \num{6} and \num{7}).
-The two knobs of the double range slider (\num{8} and \num{9}) identify the portion of the trace (colored in black) actually loaded in the table.
+The solid part of the time bar (here colored in black) identifies the portion of the trace actually loaded in the view.
+The semi-transparent grey portion shows the currently selected part of the trace.
 Using this kind of representation, the user always keeps a global visibility on the whole trace, while loading only the information he is interested in.
-In order to change the time window loaded in the view, the user has to change the width of the black bar using the knobs \num{8} and \num{9}.
+In order to change the time window loaded in the view, the user can move the knobs \num{8} and \num{9} of the double range slider.
 However, in order to avoid spurious and useless data transfers (from disk to memory), the new time interval is actually loaded only when the user presses the button indicated as \num{7}.
 The button indicated as \num{6} resynchronizes the time bar with the time window actually loaded in the table, if they differ (i.e., the user modified the interval in the timebar without triggering a load with button \num{7}).
 In order to modify the time window visualized in the double range slider the user has several possibilities. 
 \begin{itemize}
- \item \emph{Graphical selection}: it is the most intuitive way and it involves using the two knobs \num{8} and \num{9}, in order to graphically set the two bounds of the time interval.
+ \item \emph{Graphical selection}: it is the most intuitive way and it involves using the two knobs \num{8} and \num{9}, in order to graphically set the two bounds of the time interval. Alternatively, the user can also click on the time bar which will move the closest knob to that position.
  \item \emph{Time window navigation}: this possibility involves using the two arrow buttons \num{2} and \num{3}, to select a time window that has the same size that the currently visualized one, but is located immediately before or immediately after the current one.
  \item \emph{Manual selection}: by pressing the button indicated as \num{5}, the user accesses a dialog (Figure~\ref{fig:window_dialog}) where it is possible to explicitly put the exact values of the time interval start and end timestamps. 
  This dialog enables also a manual definition of the size of the time window to be used when performing the \emph{time window navigation} described above.
@@ -315,7 +314,6 @@ In order to modify the time window visualized in the double range slider the use
 Regarding timestamps representation in Framesoc, if no time unit is indicated beside a displayed timestamp, 
 by default the time unit used is the one shown in the \emph{Trace Details} (Section~\ref{subsec:metadata}) view for that trace (\texttt{Time-Unit} metadata). 
 This applies to the time management bar described above, as well as to any other Framesoc GUI place.
-
 
 \paragraph{Event producer and event type filter}
 The pie chart, the histogram and the Gantt chart views all have filter options in order to give the users more control over their analysis. These filters allow to select the event producers and the event types used when computing the statistics. These filters can be accessed through the buttons in Figure \ref{fig:filterButtons} that are in the top right corner of the views. Clicking on one of these buttons will open a new dialog. 
@@ -341,7 +339,7 @@ The pie chart, the histogram and the Gantt chart views all have filter options i
     \label{fig:etype_dialog}         
  \end{subfigure}
  \caption{Framesoc filters}
- \label{fig:dbms_configuration}       
+ \label{fig:filter_dialog}       
 \end{figure}
 
 For the event producer filter dialog, shown in Figure \ref{fig:eprod_dialog}, all the event producers are displayed as a hierarchy tree, where each node and leaf is a checkbox that allow to select the event producer. At the bottom of the window, several buttons are available that allow to perform select operations. These buttons are:
@@ -372,6 +370,18 @@ Of course, a view toolbar does not have a button redirecting to the view itself,
 
 \paragraph{Group of view}
 If the \emph{Allow view replication} option in the preferences is enabled (see Subsubsection \ref{subsec:gui}), it is possible to open several views on the same trace. This is done by right-clicking on a trace in the Trace browser and, if a view of an analysis tool is already opened with this trace, then the \emph{Show another...} menu item appears. Clicking on this option will open a new view with the selected trace and also creates a new \emph{group of view}. A group defines a family of different types of views (i.e., Gantt, Pie, etc.) for a given trace. Each instance of a view of an analysis tool belongs to a different group. Thus, if the user performs a switch to another view, if the group of view does not yet contain an instance of this view and if the maximum number instance of a view set in the option has not been reached, a new instance of the demanded view will be created. If a view already exists within the group, then this view is put forward and it is synchronized on time (as described in the previous paragraph).  When there are at least two groups of view for the same trace, the name of the trace in the views is preceded by a number identifying the group to which it belongs.
+
+\paragraph{Snapshot}
+\begin{figure}[h!]
+  \centering
+    \includegraphics[width=0.05\textwidth]{images/snapshot_icon.png}
+  \caption{Snapshot button}
+  \label{fig:snapshot}
+\end{figure}
+
+All the analysis views can be exported into an external file(s), by clicking on the button shown in Figure \ref{fig:snapshot}.
+How the results are exported is explained for each analysis view in the following subsections.
+In every case, the results are placed in a directory created with the name of the current trace and a timestamp of the time and date.
 
 %------------------------------------------------------------------
 \subsection{Statistics Pie Chart}
@@ -430,7 +440,9 @@ In any other case, the menu can contain one or more of the following commands:
 
 Note that when a \emph{Statistics Pie Chart} view is opened for a given trace using the context menu in the trace browser, no pie chart is actually displayed, since the user has to select the metric of interest first, then press the load button (\num{6}) in the time management bar.
 
-The view toolbar contains the \emph{Show in...} buttons (\num{9}), the filter button (\num{7}) and a couple of buttons to expand/collapse the folder items in the table (\num{8}).
+The view toolbar contains the \emph{Show in...} buttons (\num{10}), the filter button (\num{7}) and a couple of buttons to expand/collapse the folder items in the table (\num{9}).
+The snapshot button (\num{8}) creates an image of the pie chart, creates a text file with the current parameters (trace name, statistics operator, etc.) and exports the value of the table in CSV format.
+An option dialog allows to select the size of the image and the destination directory.
 
 %------------------------------------------------------------------
 \subsection{Event Density Chart}
@@ -452,10 +464,13 @@ In particular, to zoom in on a portion of the chart, the user has to click at th
 To zoom out completely, the user has to do the same as above, but dragging the mouse to the left this time.
 When hovering the mouse on a bin, some information about the bin is displayed: the central timestamp and the number of events.
 
-In top right corner, there is the event type and event producer filter buttons (\num{2}), and the view switching buttons (\num{3}). The features of these buttons are described in Subsection \ref{subsec:principles}.
+In top right corner, there is the event type and event producer filter buttons (\num{2}), and the view switching buttons (\num{4}). The features of these buttons are described in Subsection \ref{subsec:principles}.
 
 At the bottom of the view, there is the time management bar described in Subsection~\ref{subsec:principles}.
 The event density is computed considering only the events in the selected time interval, for the selected types and the selected producers.
+
+The snapshot button (\num{3}) creates an image of the event density chart and a text file containing the current context (trace name, filtered event types and event producers, etc.).
+An option dialog allows to select the size of the image and the destination directory.
 
 %------------------------------------------------------------------
 \subsection{Event Table View}
@@ -487,7 +502,10 @@ All filters can be cleaned contextually pressing \texttt{DEL}.
 
 At the bottom of the view, there is the time management bar described in Subsection~\ref{subsec:principles}.
 
-Beside the three \emph{Show in...} buttons indicated as \num{3} (see Subsection~\ref{subsec:principles}), the view toolbar contains a button (\num{2}) that resizes column width to fit the actual content.
+Beside the three \emph{Show in...} buttons indicated as \num{4} (see Subsection~\ref{subsec:principles}), the view toolbar contains a button (\num{2}) that resizes column width to fit the actual content. There is also a button (\num{3}) to export the table values into a CSV file.
+When exporting to CSV, an option dialog allows to select the columns that will be exported in the CSV file, along with specifying the destination directory.
+The export tool only exports the currently loaded values in the table, i.e. if a filter is active, then only the filtered elements are exported.
+Note that for the custom parameters, since not all event types have the same parameters, the export contains empty values, i.e. when an event type does not have a custom parameter then the corresponding CSV value is left blank\footnote{These blank values can be filled automatically by external tools. For example, R has a "fill" option when importing a CSV that replaces blank values with "NA".}.
 
 %------------------------------------------------------------------
 \subsection{Gantt Chart View}
@@ -495,7 +513,7 @@ Beside the three \emph{Show in...} buttons indicated as \num{3} (see Subsection~
 
 \begin{figure}[h!]
   \centering
-    \includegraphics[width=1.0\textwidth]{images/gantt.pdf}
+    \includegraphics[width=1.0\textwidth]{images/gantt.png}
   \caption{Gantt Chart view}
   \label{fig:gantt}
 \end{figure}
@@ -528,7 +546,7 @@ When zooming in/out the following functionalities can be triggered:
 \begin{itemize}
  \item State aggregation: if there are not enough pixels to show all the states in a given time region, these states are aggregated and a black point is displayed above the point where the aggregation took place. 
  \item Link filtering: if there are not enough pixels to show all the links in a given time region, only the visible links are shown. 
- The percentage of shown links (computed over the total of links in the time region currently visible) is displayed above the Gantt chart (\num{14}).
+ The percentage of shown links (computed over the total of links in the time region currently visible) is displayed above the Gantt chart (\num{15}).
  When there exist no links in the trace (in the time region currently visible) the percentage value is \texttt{100\%}. This state of this option is global, i.e. the future instances of the Gantt chart view will use the value of this option when it was last modified (e.g. if link display is turned off in the Gantt, all the next instances of the Gantt view will not display the links). 
 \end{itemize}
 These two functionalities keep the user aware of what is going on (information loss), thus reducing visual artifacts and possible analysis pitfalls.
@@ -538,21 +556,36 @@ While selecting a given region, the same selection is applied to the time manage
 Similarly, changing the selection in the time management bar, changes the selection in the Gantt chart.
 When a time region is selected, clicking on a given point of the Gantt chart removes the selection and restore the time management bar selection as it was before.
 
-Beside the three \emph{Show in...} buttons indicated as \num{13} (see Subsection~\ref{subsec:principles}), the view toolbar contains the following buttons:
+Beside the three \emph{Show in...} buttons indicated as \num{14} (see Subsection~\ref{subsec:principles}), the view toolbar contains the following buttons:
 \begin{itemize}
 	\item Button \num{1}: display a dialog where it is possible to select the event producers to display.
 	\item Button \num{2}: display a dialog where it is possible to select the types to display.
 	\item Button \num{3}: hide/display links.
-	\item Button \num{4}: fit the zoom to the available screen space, to display all the loaded portion of the trace in the view.
-    \item Button \num{5}: zoom in.
-	\item Button \num{6}: zoom out.
-  	\item Button \num{7}: select the previous event.
-	\item Button \num{8}: select the next event.
-	\item Button \num{9}: select the previous event producer line.
-	\item Button \num{10}: select the next event producer line.
-    \item Button \num{11}: display a dialog showing the color legend. 
-	\item Button \num{12}: use the CPU drawer; the trace is reloaded using a different event producer hierarchy where CPUs are the roots.
+	\item Button \num{4}: take a snapshot. A more detailed description is given below. 
+	\item Button \num{5}: fit the zoom to the available screen space, to display all the loaded portion of the trace in the view.
+    \item Button \num{6}: zoom in.
+	\item Button \num{7}: zoom out.
+  	\item Button \num{8}: select the previous event.
+	\item Button \num{9}: select the next event.
+	\item Button \num{10}: select the previous event producer line.
+	\item Button \num{11}: select the next event producer line.
+    \item Button \num{12}: display a dialog showing the color legend. 
+	\item Button \num{13}: use the CPU drawer; the trace is reloaded using a different event producer hierarchy where CPUs are the roots.
 \end{itemize}
+
+The snapshot button creates an image of the Gantt chart and a text file containing the context (trace name, time interval, filtered elements, etc.).
+When performing a snapshot, an option dialog allows to select the destination directory, the size of the snapshot, if the snapshot should include the time scale and if the whole Gantt height should be included.
+The snapshot only includes the current display of the Gantt, which means that:
+\begin{itemize}
+	\item if the currently shown part do not show the whole loaded time interval (i.e. there is a zoom in), then only the currently shown part will be captured;
+	\item if links are displayed they will also be captured;
+	\item if part of the hierarchy is collapsed or hidden, then the capture of the Gantt will not show the hidden elements;
+	\item if a selection is displayed, it will also be captured.
+\end{itemize}
+
+The graph is redrawn according to the given width, meaning that giving a bigger width than the current display, can alter the chart by drawing more details, i.e. by drawing events or states that were previously aggregated.
+If the whole Gantt height option is selected then the height of the final picture is constrained by the height of the Gantt. 
+If the option is not selected, then the capture will start at the currently displayed starting point and will stop at the specified height, or at the bottom of the graph (whichever comes first).
 
 %------------------------------------------------------------------
 \section{Framesoc Menu and Toolbar}
@@ -653,6 +686,23 @@ Note also that at each Framesoc startup, the system automatically checks that th
 If it is not the case, the database configuration wizard is automatically launched.
 
 A control for mismatch between runtime tools and System DB tools is also done at each startup, with the same policy as described above.
+
+\paragraph{Database Update}
+At each startup of Framesoc or each time a new database is specified, a control is performed to check that the current database is conform to the current model. If Framesoc detects that it is not the case, then it warns the user that the database does not match with the current model, and asks the user if it wants to try to perform an update (Figure \ref{fig:updateDBQuestion}). During the update, a progress bar showing the progress of the updating process is displayed. If the process fails, a dialog stating the error will be displayed and it might then be necessary to change the repository of the database (\emph{SQLite}) or delete it (\emph{MySQL}). If the process succeeds, a dialog informs the user (Figure \ref{fig:updateDBSuccess}) and Framesoc can then be used normally.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=.5\textwidth]{images/updateDBQuestion.png}
+	\caption{Update Database Question Dialog}
+	\label{fig:updateDBQuestion}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=.5\textwidth]{images/updateDBSuccess.png}
+	\caption{Successful Database Update Dialog}
+	\label{fig:updateDBSuccess}
+\end{figure}
 
 \subsubsection{GUI settings}
 \label{subsec:gui}
@@ -765,7 +815,7 @@ Pressing \emph{OK}, the selected analysis tool is launched with the provided inp
   \label{fig:analysis_dialog}
 \end{figure}
 
-\subsection{Trace Export }
+\subsection{Trace Export}
 \label{subsec:export}
 
 The launch export tool dialog (Figure~\ref{fig:analysis_dialog}) allows the user to launch one of the export tools registered in the system.
