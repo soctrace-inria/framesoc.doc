@@ -61,7 +61,7 @@ Generoso Pagano\thanks{INRIA, firstname.lastname@inria.fr}, Youenn Corre\footnot
 \newcommand{\subparag}[1]{\subparagraph{#1}\mbox{}\\}
 \newcommand{\subsubparag}[1]{\subparagraph{#1}}
 \newcommand{\num}[1]{\textcolor{red}{#1}}
-\newcommand{\numVersion}{v1.0.8}
+\newcommand{\numVersion}{v1.0.9}
 %% 
 %% Itemize
 \renewcommand{\labelitemi}{$\bullet$}
@@ -503,6 +503,7 @@ This table has the following columns:
  \item Event Type: the event type name.
  \item Parameters: the list of the event custom parameters, with the format \texttt{NAME='VALUE'}.
 \end{itemize}
+Double-clicking on one row of the column will open the Gantt Chart view, with the focus set on the event displayed in the table row.
 The first row of the table contains an editable filter for each column. 
 These filters accept regular expressions.
 The number of events matched by the filter, over the totality of loaded events, is shown in the status bar under the table viewer (\num{1}).
@@ -511,7 +512,8 @@ All filters can be cleaned contextually pressing \texttt{DEL}.
 
 At the bottom of the view, there is the time management bar described in Subsection~\ref{subsec:principles}.
 
-Beside the three \emph{Show in...} buttons indicated as \num{4} (see Subsection~\ref{subsec:principles}), the view toolbar contains a button (\num{2}) that resizes column width to fit the actual content. There is also a button (\num{3}) to export the table values into a CSV file.
+Beside the three \emph{Show in...} buttons indicated as \num{4} (see Subsection~\ref{subsec:principles}), the view toolbar contains a button (\num{2}) that resizes column width to fit the actual content. 
+There is also a button (\num{3}) to export the table values into a CSV file.
 When exporting to CSV, an option dialog allows to select the columns that will be exported in the CSV file, along with specifying the destination directory.
 The export tool only exports the currently loaded values in the table, i.e. if a filter is active, then only the filtered elements are exported.
 Note that for the custom parameters, since not all event types have the same parameters, the export contains empty values, i.e. when an event type does not have a custom parameter then the corresponding CSV value is left blank\footnote{These blank values can be filled automatically by external tools. For example, R has a "fill" option when importing a CSV that replaces blank values with "NA".}.
@@ -791,6 +793,19 @@ Note that the use of external \emph{black-box} tools is discouraged, since most 
 Note also that plugin tools cannot be added, edited or removed via the manage tool dialog, since they are managed as standard Eclipse plugins.
 Plugin tools are installed and removed using the normal Eclipse procedure (\textbf{Help $>$ Install New Software...} menu). 
 
+\subsubsection{Other}
+
+\begin{figure}[h!]
+  \centering
+    \includegraphics[width=0.5\textwidth]{images/conf_other.png}
+  \caption{Other settings tab}
+  \label{fig:other_tab}
+\end{figure}
+
+The \emph{Other} (Fig.\ref{fig:other_tab}) tab shows miscellaneous options: 
+\begin{itemize}
+	\item \emph{Ask for Tool Removal}: when a tool is present in the database but is no longer loaded in Framesoc, Framesoc deletes the corresponding tool entry from the database. This option enables to show a dialog, letting the user decide to keep or delete the tool from the database.
+\end{itemize}
 
 \subsection{Trace Import}
 \label{subsec:import}
