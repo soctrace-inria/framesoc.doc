@@ -18,7 +18,7 @@
 
 %%
 %% date
-\RRdate{July 2015}
+\RRdate{October 2015}
 %%
 %% If version 2
 %% \RRversion{2}
@@ -61,7 +61,7 @@ Generoso Pagano\thanks{INRIA, firstname.lastname@inria.fr}, Youenn Corre\footnot
 \newcommand{\subparag}[1]{\subparagraph{#1}\mbox{}\\}
 \newcommand{\subsubparag}[1]{\subparagraph{#1}}
 \newcommand{\num}[1]{\textcolor{red}{#1}}
-\newcommand{\numVersion}{v1.0.9}
+\newcommand{\numVersion}{v1.0.10}
 %% 
 %% Itemize
 \renewcommand{\labelitemi}{$\bullet$}
@@ -356,8 +356,9 @@ The event type filter dialog, illustrated in Figure \ref{fig:etype_dialog}, disp
 
 Note that as opposed to the time management bar, where in order to perform the filtering on time the user has to press a button, these filters are applied immediately after the user has pressed the \emph{OK} button in the dialog.
 
-\paragraph{View communication} Using the Framesoc Bus (described in the RT-447~\cite{pagano:hal-00977887}), Framesoc views can communicate with each other. This mechanism is mostly used to synchronize the different views on time intervals, and to propagate to all the views changes in colors (see Subsection~\ref{subsec:colors}) or trace metadata (see Subsection~\ref{subsec:metadata}).
-Regarding time interval synchronization, in the toolbar of each Framesoc analysis view, there are some \emph{Show in...} buttons, allowing the user to pass from one view to another, still keeping the same trace and the same time interval. Figure~\ref{fig:show_in} shows all the possible \emph{Show in...} buttons. 
+\paragraph{View communication} Using the Framesoc Bus (described in the RT-447~\cite{pagano:hal-00977887}), Framesoc views can communicate with each other. This mechanism is mostly used to synchronize the different views on time intervals, filters (both for event type and event producer), and to propagate to all the views changes in colors (see Subsection~\ref{subsec:colors}) or trace metadata (see Subsection~\ref{subsec:metadata}).
+Regarding time interval and filter synchronization, in the toolbar of each Framesoc analysis view, there are some \emph{Show in...} buttons, allowing the user to pass from one view to another, still keeping the same trace and the same time interval. Figure~\ref{fig:show_in} shows all the possible \emph{Show in...} buttons. 
+Synchronization for the filters can be enabled/disabled through the configuration dialog (see Subsection \ref{conf_other}).
 
 \begin{figure}[h!]
   \centering
@@ -534,13 +535,15 @@ This kind of representation is pretty common in trace analysis frameworks (e.g.,
 
 The main element of this view is a Gantt viewer\footnote{The viewer is based on the one available in the Lttng Eclipse Viewer~\cite{lttng_viewer}}, which is composed of two parts.
 
-On the left there is the hierarchy of event producers. 
-Double clicking on a non-leaf node of the tree, the node is expanded/collapsed.
-Right clicking on a node, a contextual menu is shown. 
+On the left, there is the hierarchy of event producers.
+Double-clicking on a non-leaf node of the tree, the node is expanded/collapsed.
+Right-clicking on a node, a contextual menu is shown.
 For leaf nodes, the menu allows the user to hide them.
 For non-leaf nodes, the menu allows the user to hide them and their sons, or to expand/collapse them.
+Note that the top event producers of the hierarchy might be merged into one single entry, provided that none of them actually produce any event. 
+The entry for the merged producers will contain all their names separated by "-".
 
-On the right there is the actual time chart, showing for each producer all the punctual events it generates (represented as simple vertical lines) and all the states it spends time in (represented as colored rectangles). 
+On the right, there is the actual time chart, showing for each producer all the punctual events it generates (represented as simple vertical lines) and all the states it spends time in (represented as colored rectangles). 
 If there are links in the trace (e.g., communications), they are represented as oriented arrows.
 The Gantt chart does not currently consider variables.
 The colors used for the different entities depend on the event type.
@@ -552,8 +555,11 @@ For each entity the tooltip contains specific information:
  \item for a punctual event: the producer, the type and the timestamp.
 \end{itemize}
 
-Zooming in/out on a given point of the Gantt chart, is done putting the mouse on the point of interest, then moving the mouse wheel while pressing \texttt{CTRL}.
-When zooming in/out the following functionalities can be triggered:
+Right-clicking on a non-empty element of the Gantt will pop-up a contextual menu.
+From this menu, it is possible to filter out the type of the element, to change the color of the type of the element and to show the element in the Event Table.
+
+Zooming in/out on a given point of the Gantt chart, is performed by putting the mouse on the point of interest, then scrolling the mouse wheel while pressing \texttt{CTRL}.
+When zooming in/out, the following functionalities can be triggered:
 \begin{itemize}
  \item State aggregation: if there are not enough pixels to show all the states in a given time region, these states are aggregated and a black point is displayed above the point where the aggregation took place. 
  \item Link filtering: if there are not enough pixels to show all the links in a given time region, only the visible links are shown. 
@@ -794,7 +800,7 @@ Note also that plugin tools cannot be added, edited or removed via the manage to
 Plugin tools are installed and removed using the normal Eclipse procedure (\textbf{Help $>$ Install New Software...} menu). 
 
 \subsubsection{Other}
-
+\label{conf_other}
 \begin{figure}[h!]
   \centering
     \includegraphics[width=0.5\textwidth]{images/conf_other.png}
@@ -804,8 +810,12 @@ Plugin tools are installed and removed using the normal Eclipse procedure (\text
 
 The \emph{Other} (Fig.\ref{fig:other_tab}) tab shows miscellaneous options: 
 \begin{itemize}
+	\item \emph{Synchronize event type filter}: specifies whether the event type filter will be synchronized in the new view when using one of the switching-view buttons.
+	\item \emph{Synchronize event producer filter}: specifies whether the event producer filter will be synchronized in the new view when using one of the switching-view buttons.
 	\item \emph{Ask for Tool Removal}: when a tool is present in the database but is no longer loaded in Framesoc, Framesoc deletes the corresponding tool entry from the database. This option enables to show a dialog, letting the user decide to keep or delete the tool from the database.
 \end{itemize}
+
+
 
 \subsection{Trace Import}
 \label{subsec:import}
@@ -878,9 +888,11 @@ It contains the following parameters:
  \item[soctrace\_db\_name]: Name of the Framesoc System DB.
  \item[max\_view\_instances]: Maximum number of instances for a given type of analysis views.
  \item[trace\_db\_ts\_indexing]: Boolean stating if automatic time indexing is done at trace import.
- \item[trace\_db\_eid\_indexing]: Boolean stating if automatic indexing on event ID in EVENT\_PARAM table 
+ \item[trace\_db\_eid\_indexing]: Boolean stating if automatic indexing on event ID in EVENT\_PARAM table.
  \item[ask\_for\_tool\_removal]: Boolean stating if user confirmation must be asked when removing a tool and its results.
  \item[allow\_view\_replication]: Boolean stating if it is possible to open more instances of the same type of view for a given trace.
+ \item[type\_filter\_synchronization]: Boolean stating if the event type filter is synchronized when switching view.
+ \item[producer\_filter\_synchronization]: Boolean stating if the event producer filter is synchronized when switching view.
 
 \end{description}
 
