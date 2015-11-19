@@ -61,7 +61,7 @@ Generoso Pagano\thanks{INRIA, firstname.lastname@inria.fr}, Youenn Corre\footnot
 \newcommand{\subparag}[1]{\subparagraph{#1}\mbox{}\\}
 \newcommand{\subsubparag}[1]{\subparagraph{#1}}
 \newcommand{\num}[1]{\textcolor{red}{#1}}
-\newcommand{\numVersion}{v1.0.10}
+\newcommand{\numVersion}{v1.0.11}
 %% 
 %% Itemize
 \renewcommand{\labelitemi}{$\bullet$}
@@ -135,7 +135,7 @@ The alias of the trace currently shown within an analysis view is displayed as t
 For each trace, there can be an instance of each type of analysis view. 
 The maximum number of open instances for a given type of analysis view is configurable (Appendix~\ref{app:conf}).
 When a trace is selected in the trace browser, the corresponding metadata are shown in the metadata viewer and all the analysis views referring to that trace (if any) are highlighted. 
-Namely, the view name (which corresponds to the trace alias) is preceded by an arrow (\emph{>}). 
+Namely, the view name (which corresponds to the trace alias) is preceded by an arrow (\emph{$>$}). 
 In the example shown in Figure~\ref{fig:all_perspective}, all analysis views refer to the selected trace \texttt{nancy\_64\_cg.C.64}.
 On the other hand, when an analysis view is given focus, the trace shown in that view becomes the selected trace in the trace browser, so the metadata viewer is updated accordingly and all the analysis views are consistently highlighted or unhighlighted. 
 
@@ -372,6 +372,13 @@ Button \num{1} switches to the event table view (see Subsection~\ref{subsec:tabl
 Of course, a view toolbar does not have a button redirecting to the view itself, so only three out of four possible \emph{Show in...} buttons are displayed in each view toolbar.
 
 \paragraph{Group of view}
+\begin{figure}[h!]
+  \centering
+    \includegraphics[width=0.05\textwidth]{images/synchronize_group.png}
+  \caption{Synchronize group button}
+  \label{fig:syncGroup}
+\end{figure}
+
 If the \emph{Allow view replication} option in the preferences is enabled (see Subsubsection \ref{subsec:gui}), it is possible to open several instances of the same type of view for the same trace. 
 Indeed, when right-clicking on a trace in the Trace browser, if for that trace an instance of a given type of view is already open, the \emph{Show Another...} menu item is proposed. 
 Clicking on this option will open a new instance of the selected type of view for the selected trace and also creates a new \emph{group of view}. 
@@ -380,6 +387,9 @@ Each group can contain one instance of each type of view.
 If the user performs a switch from a type of view (e.g., Gantt) to another (e.g., Pie), if the group of view does not yet contain an instance of the demanded view, a new instance of such a view will be created for the group.
 On the contrary, if the demanded type of view already exists in the group, this view is put forward and it is synchronized on time (as described in the previous paragraph).  
 When there are at least two groups of view for the same trace, the name of the trace in the views is preceded by a number identifying the group to which it belongs.
+
+Figure \ref{fig:syncGroup} shows the \emph{Synchronize Group} button. This button allows to synchronize all the views of a group in one click. 
+The synchronization is performed on time and, depending on the enabled options, on the event type and event producer filters.
 
 \paragraph{Snapshot}
 \begin{figure}[h!]
@@ -895,6 +905,27 @@ It contains the following parameters:
  \item[producer\_filter\_synchronization]: Boolean stating if the event producer filter is synchronized when switching view.
 
 \end{description}
+
+\newpage
+%%=====================================================================
+\section{Framesoc in Command Lines}
+\label{app:headless}
+%%=====================================================================
+To use Framesoc in command lines, you must launch an Eclipse with Framesoc already installed with the following command:
+	
+	 \texttt{./eclipse -application fr.inria.soctrace.framesoc.headless.framesocHeadless -nosplash <COMMAND> [OPTION]}
+
+The \texttt{-application} parameter specifies which application to run (in our case the headless version of Framesoc) and the \texttt{-nosplash} tells Eclipse not to display the launching image. \texttt{<COMMAND>} is the Framesoc that is called. If no command is provided, the output should return an error and display the list of available commands. The available commands depend on the installed plugins, since they are discovered at runtime through extension points.
+
+\subsection{Database setup}
+The first time Framesoc is launched, if the database has not been correctly specified, then you will be prompted with a choices of operations that will let you set up the database. 
+
+\subsection{Supported command lines}
+The help for each command can be accessed directly in Framesoc with the \texttt{--help} (or \texttt{-h}) option:
+
+	\texttt{./eclipse -application fr.inria.soctrace.framesoc.headless.framesocHeadless -nosplash <COMMAND> --help}
+
+
 
 %% bibliography
 \newpage
